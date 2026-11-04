@@ -1,7 +1,8 @@
 # IsaPhilo Enterprise
 
-A responsive React, Vite, and Tailwind CSS website for IsaPhilo Enterprise,
-the Ghana-based building materials supplier and construction partner.
+A responsive React, Vite, and Tailwind CSS website for IsaPhilo Trading
+Enterprise, a Ghana-based supplier of quality building materials for
+construction projects.
 
 The site includes Home, About, Products, Projects, Portfolio, Services, Careers,
 and Contact pages. The catalog contains 104 items across 12 categories, product
