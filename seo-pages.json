@@ -1,0 +1,42 @@
+{
+  "Home": {
+    "path": "/",
+    "title": "Building Materials in Ghana | IsaPhilo Enterprise",
+    "description": "Cement, steel, blocks, paints, plywood and roofing from IsaPhilo Enterprise in Mfuom, Dunkwa-On-Offin, Ghana. Ask about stock and delivery."
+  },
+  "About": {
+    "path": "/about",
+    "title": "About IsaPhilo Enterprise | Ghana Building Supplies",
+    "description": "Meet IsaPhilo Enterprise, a Ghanaian building materials supplier and construction partner based at Mfuom Last Stop in Dunkwa-On-Offin."
+  },
+  "Products": {
+    "path": "/products",
+    "title": "Cement & Building Materials in Ghana | IsaPhilo",
+    "description": "Browse cement, steel, blocks, paints, plywood, roofing and doors. Contact IsaPhilo Enterprise in Mfuom to confirm stock, pricing and delivery."
+  },
+  "Projects": {
+    "path": "/projects",
+    "title": "Ghana Construction Projects | IsaPhilo Enterprise",
+    "description": "View construction project examples from Ghana's Central, Western and Ashanti regions. Some project names and images are illustrative."
+  },
+  "Portfolio": {
+    "path": "/portfolio",
+    "title": "Construction Portfolio | IsaPhilo Enterprise",
+    "description": "See building and construction project examples from IsaPhilo Enterprise. Some project details and photos are illustrative."
+  },
+  "Services": {
+    "path": "/services",
+    "title": "Building Supply & Construction | IsaPhilo Ghana",
+    "description": "Building materials, delivery coordination and construction support from IsaPhilo Enterprise at Mfuom Last Stop, Ghana."
+  },
+  "Careers": {
+    "path": "/careers",
+    "title": "Construction Jobs in Ghana | IsaPhilo Enterprise",
+    "description": "Explore construction and supply career opportunities at IsaPhilo Enterprise in Ghana. Contact our team to confirm current openings."
+  },
+  "Contact": {
+    "path": "/contact",
+    "title": "Contact IsaPhilo Enterprise | Dunkwa-On-Offin",
+    "description": "Contact IsaPhilo Enterprise in Mfuom, Dunkwa-On-Offin, Ghana about building materials, stock, delivery or construction support."
+  }
+}

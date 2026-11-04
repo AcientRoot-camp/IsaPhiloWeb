@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteRule ^(about|products|projects|portfolio|services|careers|contact)/?$ $1.html [L]
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+RewriteRule ^ index.html [L]
