@@ -507,6 +507,7 @@ function Header({ page, setPage, search, setSearch }) {
           >
             <span />
             <span />
+            <span />
           </button>
         </div>
       </div>

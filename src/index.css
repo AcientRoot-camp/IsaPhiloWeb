@@ -481,9 +481,9 @@ img {
   justify-content: center;
   flex-direction: column;
   gap: 6px;
-  border: 1px solid rgb(255 255 255 / 20%);
+  border: 0;
   border-radius: 50%;
-  background: transparent;
+  background: var(--green);
   cursor: pointer;
 }
 
@@ -498,7 +498,8 @@ img {
 
 .mobile-menu-toggle span {
   width: 17px;
-  height: 1px;
+  height: 2px;
+  border-radius: 999px;
   background: white;
 }
 
