@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { productCategories, products } from "./products.js";
 import seoPages from "../seo-pages.json";
 
@@ -419,10 +419,13 @@ function Brand({ setPage }) {
 
 function Header({ page, setPage, search, setSearch }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+  const searchInputRef = useRef(null);
 
   function navigate(nextPage) {
     setPage(nextPage);
     setMenuOpen(false);
+    setMobileSearchOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -437,13 +440,21 @@ function Header({ page, setPage, search, setSearch }) {
     navigate("Products");
   }
 
+  useEffect(() => {
+    if (mobileSearchOpen) searchInputRef.current?.focus();
+  }, [mobileSearchOpen]);
+
   return (
     <header className="site-header">
       <div className="header-contact-band">
         <div className="wide-shell">
           <div className="header-contact-card" aria-label="IsaPhilo Enterprise contact information and business hours">
             <span className="header-contact-item">
-              <strong>Working Days:</strong> Monday–Saturday, Sunday Closed
+              <strong>Working Days:</strong>
+              <span className="header-contact-value">
+                <span className="header-contact-value-full">Monday–Saturday, Sunday Closed</span>
+                <span className="header-contact-value-mobile">Mon–Sat, Sun closed</span>
+              </span>
             </span>
             <span className="header-contact-item">
               <strong>Working Hours:</strong> 7am–6pm
@@ -460,6 +471,19 @@ function Header({ page, setPage, search, setSearch }) {
       <div className="header-main">
         <div className="wide-shell header-row">
           <Brand setPage={setPage} />
+          <button
+            className="mobile-search-toggle"
+            type="button"
+            aria-expanded={mobileSearchOpen}
+            aria-controls="site-search"
+            aria-label={mobileSearchOpen ? "Close product search" : "Open product search"}
+            onClick={() => setMobileSearchOpen((open) => !open)}
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+              <circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" strokeWidth="1.8" />
+              <path d="m16 16 4.2 4.2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            </svg>
+          </button>
           <nav className={`main-nav${menuOpen ? " is-open" : ""}`} id="primary-navigation" aria-label="Main navigation">
             {navigation.map((item) => (
               <a
@@ -486,9 +510,15 @@ function Header({ page, setPage, search, setSearch }) {
           </button>
         </div>
       </div>
-      <form className="search-bar" onSubmit={submitSearch} role="search">
+      <form
+        className={`search-bar${mobileSearchOpen ? " is-mobile-open" : ""}`}
+        id="site-search"
+        onSubmit={submitSearch}
+        role="search"
+      >
         <span className="search-symbol" aria-hidden="true">⌕</span>
         <input
+          ref={searchInputRef}
           aria-label="Search products"
           onChange={(event) => setSearch(event.target.value)}
           placeholder="Search cement, paints, steel, blocks and more"
@@ -735,7 +765,6 @@ function HomePage({ setPage, openProduct }) {
               </button>
             ))}
           </div>
-          <span className="hero-watermark" aria-hidden="true">IP</span>
         </div>
         <div className="hero-info-strip">
           <span><Pin />{CONTACT.address}</span>
@@ -749,13 +778,23 @@ function HomePage({ setPage, openProduct }) {
           <button className="text-button" onClick={() => setPage("Products")} type="button">Browse all {products.length} products <Arrow /></button>
         </div>
         <div className="category-grid">
-          {productCategories.map((item, index) => (
-            <button key={item.key} className="category-card" onClick={() => setPage("Products")} type="button">
-              <span className="category-number">{String(index + 1).padStart(2, "0")}</span>
-              <span><strong>{item.category}</strong><small>{item.count} product{item.count > 1 ? "s" : ""}</small></span>
-              <Arrow diagonal />
-            </button>
-          ))}
+          {productCategories.map((item) => {
+            const categoryProduct = products.find((product) => product.categoryKey === item.key);
+            return (
+              <button key={item.key} className="category-card" onClick={() => setPage("Products")} type="button">
+                {categoryProduct && (
+                  <img
+                    className={`category-card-image${categoryProduct.imageFit === "contain" ? " contain" : ""}`}
+                    src={categoryProduct.image}
+                    alt=""
+                    loading="lazy"
+                  />
+                )}
+                <span><strong>{item.category}</strong><small>{item.count} product{item.count > 1 ? "s" : ""}</small></span>
+                <Arrow diagonal />
+              </button>
+            );
+          })}
         </div>
       </section>
       <section className="home-projects">
@@ -782,7 +821,7 @@ function AboutPage() {
       <section className="about-feature-grid">
         <article className="about-feature"><span className="large-stat">12k+</span><h2>Building essentials, ready at the hub.</h2><p>Our Mfuom Last Stop operation is set up to support projects with a broad selection of building materials and dependable coordination.</p></article>
         <article className="about-feature about-dark"><span className="large-stat">60+</span><h2>Delivery support that keeps projects moving.</h2><p>Our GPS-tracked fleet supports dispatch planning across Central Region and other operating areas. Timing depends on destination and current availability.</p></article>
-        <article className="about-feature about-image"><img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1000&q=85" alt="Construction material prepared for a building project" loading="lazy" /><div><span className="eyebrow">OUR APPROACH</span><h2>Traceable supply. Practical partnership.</h2></div></article>
+        <article className="about-feature about-image"><img src="/products/blocks.jpg" alt="Concrete blocks stacked at a building-materials yard" loading="lazy" /><div><span className="eyebrow">OUR APPROACH</span><h2>Traceable supply. Practical partnership.</h2></div></article>
       </section>
       <section className="inventory-strip" aria-label="Mfuom hub inventory">
         <div><strong>12k+</strong><span>cement bags</span></div>
@@ -1172,7 +1211,7 @@ export default function App() {
   }, [page]);
 
   useEffect(() => {
-    const loadingTimeout = window.setTimeout(() => setIsInitialLoading(false), 5000);
+    const loadingTimeout = window.setTimeout(() => setIsInitialLoading(false), 2000);
     return () => window.clearTimeout(loadingTimeout);
   }, []);
 
