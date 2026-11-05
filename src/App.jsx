@@ -257,50 +257,148 @@ const projects = [
 
 const services = [
   {
+    id: "maintenance",
     number: "01",
-    title: "GPS-tracked delivery",
-    text: "Coordinate building material dispatch from Mfuom across Central Region, Western Region and Obuasi in Ashanti Region. Typical dispatch is 24–48 hours, subject to stock and destination.",
-    label: "60+ TRUCKS",
-    image: "/projects/ongoing-site-1.jpg",
-    imageAlt: "Building under construction in Compound, Central Region; representative project image",
+    title: "Maintenance",
+    text: "Discuss building upkeep, repairs and maintenance needs for your property with the IsaPhilo team.",
+    label: "BUILDING CARE",
+    image: "/projects/completed-mfuom.jpg",
+    imageAlt: "Completed residential building in Mfuom, Ghana; representative building-care context",
   },
   {
+    id: "design-build",
     number: "02",
-    title: "Mfuom block factory",
-    text: "Source solid and hollow blocks, interlocking blocks, and paving for residential and commercial projects.",
-    label: "BLOCKS & PAVING",
-    image: "/products/blocks.jpg",
-    imageAlt: "Concrete blocks stacked at a manufacturing yard",
+    title: "Design & Build",
+    text: "Talk through design, materials and construction requirements for a residential or commercial project.",
+    label: "PLAN TO BUILD",
+    image: "/projects/accra-construction.jpg",
+    imageAlt: "Building under construction in Ghana; representative design-and-build context",
   },
   {
+    id: "plumbing",
     number: "03",
-    title: "Ghana paints & tinting",
-    text:     "Explore Azar, Coral, Dulux, De-Luxy, Fine Nest and Leyland paint options, with colour tinting enquiries welcome.",
-    label: "GHANA BRANDS",
-    image: "/products/azar-tex.png",
-    imageAlt: "AzarTex matt-finish emulsion paint pail, a Ghana-market product reference",
+    title: "Plumbing",
+    text: "Enquire about plumbing work and materials for new builds, renovations and property maintenance.",
+    label: "WATER SYSTEMS",
+    image: "/projects/ongoing-site-4.jpg",
+    imageAlt: "Residential building under construction in Dunkwa-On-Offin, Ghana; representative plumbing-project context",
+  },
+  {
+    id: "land-surveying",
+    number: "04",
+    title: "Land Surveying",
+    text: "Ask about land measurement and survey support to help inform site planning and construction decisions.",
+    label: "SITE PLANNING",
+    image: "/projects/ongoing-site-1.jpg",
+    imageAlt: "Building project in Compound, Central Region, Ghana; representative site-planning context",
+  },
+  {
+    id: "masonry",
+    number: "05",
+    title: "Masonry",
+    text: "Enquire about masonry work for walls and other building elements, based on your project requirements.",
+    label: "BLOCK & BRICK WORK",
+    image: "/projects/ongoing-site-3.jpg",
+    imageAlt: "Workers laying concrete blocks at a site in Dunkwa-On-Offin, Ghana",
+  },
+  {
+    id: "building-construction",
+    number: "06",
+    title: "Building Construction",
+    text: "Discuss construction support for your build, from the project scope and materials to on-site requirements.",
+    label: "RESIDENTIAL & COMMERCIAL",
+    image: "/projects/ghana-house-construction.jpg",
+    imageAlt: "House under construction in Ghana; representative building-construction context",
+  },
+  {
+    id: "block-laying",
+    number: "07",
+    title: "Block Laying",
+    text: "Ask about block-laying work and the material quantities needed for your walls and partitions.",
+    label: "BLOCKWORK",
+    image: "/products/blocks.jpg",
+    imageAlt: "Concrete blocks stacked at a building-materials yard",
+  },
+  {
+    id: "material-supply",
+    number: "08",
+    title: "Material Supply",
+    text: "Source building materials through the Mfuom hub and confirm current stock, quantities and delivery options.",
+    label: "BUILDING MATERIALS",
+    image: "/products/ghacem-extra.jpg",
+    imageAlt: "GHACEM Extra cement bag, a Ghana-market product reference",
     imageFit: "contain",
   },
   {
-    number: "04",
-    title: "Steel cut & bend",
-    text: "Discuss TMT reinforcement, pre-bent stirrups, BRC mesh and steel preparation for your build.",
+    id: "sales",
+    number: "09",
+    title: "Sales",
+    text: "Contact the team for product information, quotations and help confirming availability for your project.",
+    label: "PRODUCT ENQUIRIES",
+    image: "/products/diamond-cement.jpg",
+    imageAlt: "Diamond Cement bag, a Ghana-market product reference",
+    imageFit: "contain",
+  },
+  {
+    id: "tiles-pop-installation",
+    number: "10",
+    title: "Tiles & POP Installation",
+    text: "Discuss tile and POP ceiling installation requirements, Knauf board systems, finishes and materials for your space.",
+    label: "INTERIOR FINISHING",
+    image: "/products/plasterboard.jpg",
+    imageAlt: "Plasterboard sheets used for ceiling and interior finishing; representative product image",
+  },
+  {
+    id: "other-building-services",
+    number: "11",
+    title: "Other Building Services",
+    text: "Have a different building need? Share your project scope and location so the team can discuss next steps.",
+    label: "PROJECT SUPPORT",
+    image: "/projects/completed-site-3.jpg",
+    imageAlt: "Completed residential building in Ghana; representative project-support context",
+  },
+  {
+    id: "gps-tracked-delivery",
+    number: "12",
+    title: "GPS-Tracked Delivery",
+    text: "Coordinate building-material dispatch from Mfuom across the service areas; delivery timing depends on stock and destination.",
+    label: "DELIVERY COORDINATION",
+    image: "/projects/ongoing-site-1.jpg",
+    imageAlt: "Building under construction in Compound, Central Region; representative delivery context",
+  },
+  {
+    id: "mfuom-block-factory",
+    number: "13",
+    title: "Mfuom Block Factory",
+    text: "Enquire about solid and hollow blocks, interlocking blocks and paving for residential and commercial projects.",
+    label: "BLOCKS & PAVING",
+    image: "/products/blocks.jpg",
+    imageAlt: "Concrete blocks stacked at a building-materials yard",
+  },
+  {
+    id: "ghana-paints-tinting",
+    number: "14",
+    title: "Ghana Paints & Tinting",
+    text: "Ask about Ghana-market paint options and colour tinting, subject to current brands, stock and requirements.",
+    label: "PAINT & FINISHES",
+    image: "/products/azar-tex.png",
+    imageAlt: "AzarTex emulsion paint pail, a Ghana-market product reference",
+    imageFit: "contain",
+  },
+  {
+    id: "steel-cut-bend",
+    number: "15",
+    title: "Steel Cut & Bend",
+    text: "Discuss reinforcement steel preparation, including cut-and-bend requirements for your project.",
     label: "REINFORCEMENT",
     image: "/products/rebar.jpg",
     imageAlt: "Close-up of ribbed steel reinforcement bars",
   },
   {
-    number: "05",
-    title: "POP & Knauf installation",
-    text: "Ask about POP ceiling work and Knauf moisture-resistant board installation with experienced tradespeople.",
-    label: "CEILINGS & DRYWALL",
-    image: "/products/plasterboard.jpg",
-    imageAlt: "Sheets of drywall stacked at a building-materials yard",
-  },
-  {
-    number: "06",
-    title: "Security door installation",
-    text: "Choose from Turkish and China security door options, including selected smart-lock models and installation enquiries.",
+    id: "security-door-installation",
+    number: "16",
+    title: "Security Door Installation",
+    text: "Enquire about security-door options, fitting requirements and available installation support.",
     label: "DOORS & FITTING",
     image: "/products/zonle-doors/simple-steel-entry.jpg",
     imageAlt: "Steel entrance door product reference from the Zonle catalog",
@@ -418,16 +516,61 @@ function Brand({ setPage }) {
   );
 }
 
-function Header({ page, setPage, search, setSearch }) {
+function Header({
+  page,
+  setPage,
+  search,
+  setSearch,
+  onSelectProductCategory,
+  onBrowseAllProducts,
+  onSelectService,
+  onSelectProjectStatus,
+}) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
   const searchInputRef = useRef(null);
+  const navRef = useRef(null);
+  const dropdownTriggerRefs = useRef({});
 
   function navigate(nextPage) {
     setPage(nextPage);
     setMenuOpen(false);
     setMobileSearchOpen(false);
+    setOpenDropdown(null);
     window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function toggleDropdown(item) {
+    setOpenDropdown((current) => (current === item ? null : item));
+  }
+
+  function selectProductCategory(categoryKey) {
+    setOpenDropdown(null);
+    setMenuOpen(false);
+    setMobileSearchOpen(false);
+    onSelectProductCategory(categoryKey);
+  }
+
+  function browseAllProducts() {
+    setOpenDropdown(null);
+    setMenuOpen(false);
+    setMobileSearchOpen(false);
+    onBrowseAllProducts();
+  }
+
+  function selectService(service) {
+    setOpenDropdown(null);
+    setMenuOpen(false);
+    setMobileSearchOpen(false);
+    onSelectService(service.id);
+  }
+
+  function selectProjectStatus(status) {
+    setOpenDropdown(null);
+    setMenuOpen(false);
+    setMobileSearchOpen(false);
+    onSelectProjectStatus(status);
   }
 
   function followPageLink(event, nextPage) {
@@ -444,6 +587,27 @@ function Header({ page, setPage, search, setSearch }) {
   useEffect(() => {
     if (mobileSearchOpen) searchInputRef.current?.focus();
   }, [mobileSearchOpen]);
+
+  useEffect(() => {
+    if (!openDropdown) return undefined;
+
+    function closeOnOutsideClick(event) {
+      if (!navRef.current?.contains(event.target)) setOpenDropdown(null);
+    }
+
+    function closeOnEscape(event) {
+      if (event.key !== "Escape") return;
+      dropdownTriggerRefs.current[openDropdown]?.focus();
+      setOpenDropdown(null);
+    }
+
+    document.addEventListener("pointerdown", closeOnOutsideClick);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeOnOutsideClick);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [openDropdown]);
 
   return (
     <header className="site-header">
@@ -485,18 +649,100 @@ function Header({ page, setPage, search, setSearch }) {
               <path d="m16 16 4.2 4.2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
             </svg>
           </button>
-          <nav className={`main-nav${menuOpen ? " is-open" : ""}`} id="primary-navigation" aria-label="Main navigation">
-            {navigation.map((item) => (
-              <a
-                className={`nav-link${page === item ? " active" : ""}`}
-                key={item}
-                href={pagePaths[item]}
-                aria-current={page === item ? "page" : undefined}
-                onClick={(event) => followPageLink(event, item)}
-              >
-                {item}
-              </a>
-            ))}
+          <nav
+            ref={navRef}
+            className={`main-nav${menuOpen ? " is-open" : ""}`}
+            id="primary-navigation"
+            aria-label="Main navigation"
+          >
+            {navigation.map((item) => {
+              if (item === "Products" || item === "Services" || item === "Projects") {
+                const isOpen = openDropdown === item;
+                const dropdownId = `nav-dropdown-${item.toLowerCase()}`;
+                return (
+                  <div className="nav-dropdown" key={item}>
+                    <button
+                      ref={(element) => {
+                        dropdownTriggerRefs.current[item] = element;
+                      }}
+                      className={`nav-link nav-dropdown-trigger${page === item ? " active" : ""}`}
+                      type="button"
+                      aria-expanded={isOpen}
+                      aria-haspopup="true"
+                      aria-controls={dropdownId}
+                      aria-current={page === item ? "page" : undefined}
+                      onClick={() => toggleDropdown(item)}
+                    >
+                      {item}
+                      <svg aria-hidden="true" viewBox="0 0 16 16" fill="none">
+                        <path d="m3.5 6 4.5 4 4.5-4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </button>
+                    {isOpen && item === "Products" && (
+                      <div className="nav-dropdown-menu product-dropdown" id={dropdownId} aria-label="Browse product categories">
+                        <button className="dropdown-all-link" type="button" onClick={browseAllProducts}>
+                          Browse all products <Arrow />
+                        </button>
+                        <div className="dropdown-product-list">
+                          {productCategories.map((category) => (
+                            <button
+                              className="dropdown-option"
+                              key={category.key}
+                              type="button"
+                              onClick={() => selectProductCategory(category.key)}
+                            >
+                              {category.category}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {isOpen && item === "Services" && (
+                      <div className="nav-dropdown-menu service-dropdown" id={dropdownId} aria-label="Browse services">
+                        <button className="dropdown-all-link" type="button" onClick={() => navigate("Services")}>
+                          View all services <Arrow />
+                        </button>
+                        {services.map((service) => (
+                          <button
+                            className="dropdown-option"
+                            key={service.id}
+                            type="button"
+                            onClick={() => selectService(service)}
+                          >
+                            {service.title}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                    {isOpen && item === "Projects" && (
+                      <div className="nav-dropdown-menu service-dropdown" id={dropdownId} aria-label="Filter projects by status">
+                        <button className="dropdown-option" type="button" onClick={() => selectProjectStatus("all")}>
+                          All projects
+                        </button>
+                        <button className="dropdown-option" type="button" onClick={() => selectProjectStatus("Ongoing")}>
+                          Ongoing projects
+                        </button>
+                        <button className="dropdown-option" type="button" onClick={() => selectProjectStatus("Completed")}>
+                          Completed projects
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
+              return (
+                <a
+                  className={`nav-link${page === item ? " active" : ""}`}
+                  key={item}
+                  href={pagePaths[item]}
+                  aria-current={page === item ? "page" : undefined}
+                  onClick={(event) => followPageLink(event, item)}
+                >
+                  {item}
+                </a>
+              );
+            })}
           </nav>
           <button
             className="mobile-menu-toggle"
@@ -839,8 +1085,7 @@ function AboutPage() {
   );
 }
 
-function ProductsPage({ search, openProduct }) {
-  const [category, setCategory] = useState("all");
+function ProductsPage({ search, openProduct, category, onSelectCategory }) {
   const filtered = useMemo(() => products.filter((product) => {
     const matchesCategory = category === "all" || product.categoryKey === category;
     const query = search.trim().toLowerCase();
@@ -854,9 +1099,9 @@ function ProductsPage({ search, openProduct }) {
       <div className="catalog-layout">
         <aside className="catalog-sidebar">
           <h2>Categories</h2>
-          <button className={category === "all" ? "category-filter active" : "category-filter"} onClick={() => setCategory("all")} type="button"><span>All products</span><span>{products.length}</span></button>
+          <button className={category === "all" ? "category-filter active" : "category-filter"} onClick={() => onSelectCategory("all")} type="button"><span>All products</span><span>{products.length}</span></button>
           {productCategories.map((item) => (
-            <button className={category === item.key ? "category-filter active" : "category-filter"} key={item.key} onClick={() => setCategory(item.key)} type="button">
+            <button className={category === item.key ? "category-filter active" : "category-filter"} key={item.key} onClick={() => onSelectCategory(item.key)} type="button">
               <span>{item.category}</span><span>{item.count}</span>
             </button>
           ))}
@@ -890,13 +1135,17 @@ function ProjectCard({ project, onOpen }) {
   );
 }
 
-function ProjectsPage() {
+function ProjectsPage({ projectStatus }) {
   const [selected, setSelected] = useState(null);
+  const visibleProjects = projectStatus === "all"
+    ? projects
+    : projects.filter((project) => project.status === projectStatus);
+
   return (
     <>
       <PageIntro eyebrow="PROJECTS · CENTRAL, WESTERN & ASHANTI" title={<>Building across <span>three Ghanaian regions.</span></>} description="Locations shown on the four ongoing-site photos were provided by IsaPhilo: Compound, Twifo Praso and Dunkwa-On-Offin in the Central Region. Three completed-project photos were also supplied by IsaPhilo; their locations and association with specific projects have not been independently verified. Other project names and progress remain illustrative." />
       <div className="projects-grid">
-        {projects.map((project) => <ProjectCard key={project.name} project={project} onOpen={() => setSelected(project)} />)}
+        {visibleProjects.map((project) => <ProjectCard key={project.name} project={project} onOpen={() => setSelected(project)} />)}
       </div>
       {selected && <div className="modal-backdrop" onMouseDown={(event) => event.target === event.currentTarget && setSelected(null)}><section className="project-modal" role="dialog" aria-modal="true" aria-labelledby="project-title"><button className="modal-close" onClick={() => setSelected(null)} type="button" aria-label="Close dialog">×</button><img src={selected.photo.src} alt={selected.photo.alt} /><p className="eyebrow">{selected.photoNote ? "Completed project · photo supplied by IsaPhilo" : `${selected.status} · ${selected.progress}% illustrative`}</p><h2 id="project-title">{selected.name}</h2><p className="project-location"><Pin /><span>{selected.location}<small>{selected.region}</small></span></p><p>{selected.description}</p><p className="sample-note">{selected.photoNote ?? (selected.status === "Ongoing" ? `The photo location (${selected.photo.location}) was provided by IsaPhilo. The project name, project details, progress and association with this example are illustrative.` : `Project details and progress are illustrative. This Ghana reference photo is from ${selected.photo.location} and is not connected to this example or IsaPhilo work.`)}</p></section></div>}
     </>
@@ -917,12 +1166,34 @@ function PortfolioPage({ setPage }) {
   );
 }
 
-function ServicesPage({ setPage }) {
+function ServicesPage({ setPage, selectedServiceId }) {
+  useEffect(() => {
+    if (!selectedServiceId) return;
+    const card = document.getElementById(`service-${selectedServiceId}`);
+    card?.scrollIntoView({ behavior: "smooth", block: "center" });
+    card?.focus({ preventScroll: true });
+  }, [selectedServiceId]);
+
   return (
     <>
-      <PageIntro eyebrow="SERVICES · MFUOM HUB" title={<>More than supply. <span>Support to build.</span></>} description="Practical services that connect building materials, delivery and on-site expertise from the same partner. Images show representative product and project examples; confirm service availability and product details with our team." />
+      <PageIntro eyebrow="SERVICES · MFUOM HUB" title={<>More than supply. <span>Support to build.</span></>} description="Explore maintenance, construction, trade and materials support for projects in Ghana. Images are representative local building and product references, not proof of work by IsaPhilo Enterprise; confirm service availability and project requirements with our team." />
       <div className="services-grid">
-        {services.map((service) => <article className="service-card" key={service.number}><img className={`service-image ${service.imageFit === "contain" ? "contain" : ""}`} src={service.image} alt={service.imageAlt} loading="lazy" /><span className="service-icon">{service.number}</span><span className="service-label">{service.label}</span><h2>{service.title}</h2><p>{service.text}</p><button className="text-button" onClick={() => setPage("Contact")} type="button">Enquire about this service <Arrow /></button></article>)}
+        {services.map((service) => (
+          <article
+            className={`service-card${selectedServiceId === service.id ? " selected" : ""}`}
+            id={`service-${service.id}`}
+            key={service.id}
+            tabIndex="-1"
+            aria-labelledby={`service-title-${service.id}`}
+          >
+            <img className={`service-image ${service.imageFit === "contain" ? "contain" : ""}`} src={service.image} alt={service.imageAlt} loading="lazy" />
+            <span className="service-icon" aria-hidden="true">{service.number}</span>
+            <span className="service-label">{service.label}</span>
+            <h2 id={`service-title-${service.id}`}>{service.title}</h2>
+            <p>{service.text}</p>
+            <button className="text-button" onClick={() => setPage("Contact")} type="button">Enquire about this service <Arrow /></button>
+          </article>
+        ))}
       </div>
     </>
   );
@@ -1165,6 +1436,9 @@ export default function App() {
   );
   const [search, setSearch] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedProductCategory, setSelectedProductCategory] = useState("all");
+  const [selectedServiceId, setSelectedServiceId] = useState(null);
+  const [projectStatus, setProjectStatus] = useState("all");
   const [inquiryItems, setInquiryItems] = useState([]);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [isOffline, setIsOffline] = useState(() => !navigator.onLine);
@@ -1251,7 +1525,7 @@ export default function App() {
 
       try {
         const response = await fetch(
-          `${window.location.origin}/favicon.svg?connection-check=${Date.now()}`,
+          `${window.location.origin}/isaphilo-logo.jpg?connection-check=${Date.now()}`,
           { method: "HEAD", cache: "no-store", signal: requestController.signal },
         );
         if (isActive) setIsOffline(!response.ok);
@@ -1293,13 +1567,38 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const openCatalogCategory = (categoryKey) => {
+    setSelectedProductCategory(categoryKey);
+    setPage("Products");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const browseAllProducts = () => openCatalogCategory("all");
+
+  const openService = (serviceId) => {
+    setSelectedServiceId(serviceId);
+    setPage("Services");
+  };
+
+  const openProjectsByStatus = (status) => {
+    setProjectStatus(status);
+    setPage("Projects");
+  };
+
   const pageComponents = {
     Home: <HomePage setPage={setPage} openProduct={setSelectedProduct} />,
     About: <AboutPage />,
-    Products: <ProductsPage search={search} openProduct={setSelectedProduct} />,
-    Projects: <ProjectsPage />,
+    Products: (
+      <ProductsPage
+        search={search}
+        openProduct={setSelectedProduct}
+        category={selectedProductCategory}
+        onSelectCategory={setSelectedProductCategory}
+      />
+    ),
+    Projects: <ProjectsPage projectStatus={projectStatus} />,
     Portfolio: <PortfolioPage setPage={setPage} />,
-    Services: <ServicesPage setPage={setPage} />,
+    Services: <ServicesPage setPage={setPage} selectedServiceId={selectedServiceId} />,
     Careers: <CareersPage />,
     Contact: <ContactPage inquiryItems={inquiryItems} />,
   };
@@ -1313,7 +1612,16 @@ export default function App() {
           No internet connection detected. Check your connection to use online features.
         </div>
       )}
-      <Header page={page} setPage={setPage} search={search} setSearch={setSearch} />
+      <Header
+        page={page}
+        setPage={setPage}
+        search={search}
+        setSearch={setSearch}
+        onSelectProductCategory={openCatalogCategory}
+        onBrowseAllProducts={browseAllProducts}
+        onSelectService={openService}
+        onSelectProjectStatus={openProjectsByStatus}
+      />
       <main className="page-content wide-shell">{pageComponents[page]}</main>
       <Footer setPage={setPage} />
       {showScrollTop && <button className="scroll-to-top" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} type="button" aria-label="Scroll to top"><ArrowUp /></button>}
