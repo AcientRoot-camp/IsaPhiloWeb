@@ -1,4 +1,5 @@
 import { readFile, writeFile } from "node:fs/promises";
+import { createSeoStructuredData } from "../src/seo-structured-data.js";
 
 const siteUrl = "https://isaphiloenterprise.com";
 const outputDirectory = new URL("../dist/", import.meta.url);
@@ -49,6 +50,18 @@ function replaceCanonical(html, canonicalUrl) {
   );
 }
 
+function replaceStructuredData(html, structuredData) {
+  const expression = /<script type="application\/ld\+json">[\s\S]*?<\/script>/;
+  if (!expression.test(html)) {
+    throw new Error("Missing JSON-LD script in dist/index.html.");
+  }
+  const json = JSON.stringify(structuredData, null, 2).replaceAll("<", "\\u003c");
+  return html.replace(
+    expression,
+    `<script type="application/ld+json">\n${json}\n    </script>`,
+  );
+}
+
 const seenPaths = new Set();
 for (const [page, metadata] of Object.entries(pages)) {
   const isHome = page === "Home";
@@ -66,8 +79,6 @@ for (const [page, metadata] of Object.entries(pages)) {
   }
   seenPaths.add(metadata.path);
 
-  if (isHome) continue;
-
   const canonicalUrl = `${siteUrl}${metadata.path}`;
   let html = template.replace(
     /<title>[\s\S]*?<\/title>/,
@@ -80,9 +91,14 @@ for (const [page, metadata] of Object.entries(pages)) {
   html = replaceMeta(html, "name", "twitter:title", metadata.title);
   html = replaceMeta(html, "name", "twitter:description", metadata.description);
   html = replaceCanonical(html, canonicalUrl);
+  html = replaceStructuredData(html, createSeoStructuredData(page, metadata));
 
-  const fileName = `${metadata.path.slice(1)}.html`;
-  await writeFile(new URL(fileName, outputDirectory), html);
+  if (isHome) {
+    await writeFile(new URL("index.html", outputDirectory), html);
+  } else {
+    const fileName = `${metadata.path.slice(1)}.html`;
+    await writeFile(new URL(fileName, outputDirectory), html);
+  }
 }
 
 const sitemap = [

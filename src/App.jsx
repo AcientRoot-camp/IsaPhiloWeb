@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { productCategories, products } from "./products.js";
 import seoPages from "../seo-pages.json";
+import { createSeoStructuredData } from "./seo-structured-data.js";
 
 const CONTACT = {
   address:
@@ -1209,6 +1210,14 @@ export default function App() {
     updateMetaContent('meta[name="twitter:title"]', metadata.title);
     updateMetaContent('meta[name="twitter:description"]', metadata.description);
     document.querySelector('link[rel="canonical"]')?.setAttribute("href", canonicalUrl);
+    const structuredData = document.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    if (structuredData) {
+      structuredData.textContent = JSON.stringify(
+        createSeoStructuredData(page, metadata),
+      );
+    }
   }, [page]);
 
   useEffect(() => {

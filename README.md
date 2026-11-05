@@ -26,10 +26,12 @@ navigation uses crawlable URLs for Home, About, Products, Projects, Portfolio,
 Services, Careers and Contact. Titles, descriptions and canonical links update
 with the current page, and the build generates route-specific HTML metadata so
 crawlers and social previews receive the right page details without running
-JavaScript. The build generates the sitemap from `seo-pages.json` and writes it
-to both `public/sitemap.xml` and `dist/sitemap.xml`, keeping submitted URLs
-aligned with the canonical routes. `public/robots.txt` is copied into the
-production build. The Apache rules in `public/.htaccess` serve those pages and
+JavaScript. Each route also has JSON-LD for the business, website, and page;
+the same structured data updates during in-app navigation. The build generates
+the sitemap from `seo-pages.json` and writes it to both `public/sitemap.xml` and
+`dist/sitemap.xml`, keeping submitted URLs aligned with the canonical routes.
+`public/robots.txt` is copied into the production build. The Apache rules in
+`public/.htaccess` serve those pages and
 let Hostinger load the React app when a page URL is opened directly.
 
 After connecting the domain and HTTPS certificate in Hostinger, build with
