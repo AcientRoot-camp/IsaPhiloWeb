@@ -15,6 +15,15 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;");
 }
 
+function escapeXml(value) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&apos;");
+}
+
 function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
@@ -40,16 +49,24 @@ function replaceCanonical(html, canonicalUrl) {
   );
 }
 
+const seenPaths = new Set();
 for (const [page, metadata] of Object.entries(pages)) {
-  if (page === "Home") continue;
+  const isHome = page === "Home";
+  const hasValidPath = isHome
+    ? metadata.path === "/"
+    : /^\/[a-z0-9-]+$/.test(metadata.path);
   if (
     typeof metadata.path !== "string" ||
-    !/^\/[a-z0-9-]+$/.test(metadata.path) ||
+    !hasValidPath ||
     typeof metadata.title !== "string" ||
-    typeof metadata.description !== "string"
+    typeof metadata.description !== "string" ||
+    seenPaths.has(metadata.path)
   ) {
     throw new Error(`Invalid SEO page path for "${page}": ${metadata.path}`);
   }
+  seenPaths.add(metadata.path);
+
+  if (isHome) continue;
 
   const canonicalUrl = `${siteUrl}${metadata.path}`;
   let html = template.replace(
@@ -67,3 +84,20 @@ for (const [page, metadata] of Object.entries(pages)) {
   const fileName = `${metadata.path.slice(1)}.html`;
   await writeFile(new URL(fileName, outputDirectory), html);
 }
+
+const sitemap = [
+  '<?xml version="1.0" encoding="UTF-8"?>',
+  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+  ...Object.values(pages).flatMap(({ path }) => [
+    "  <url>",
+    `    <loc>${escapeXml(`${siteUrl}${path === "/" ? "/" : path}`)}</loc>`,
+    "  </url>",
+  ]),
+  "</urlset>",
+  "",
+].join("\n");
+
+await Promise.all([
+  writeFile(new URL("../public/sitemap.xml", import.meta.url), sitemap),
+  writeFile(new URL("sitemap.xml", outputDirectory), sitemap),
+]);
