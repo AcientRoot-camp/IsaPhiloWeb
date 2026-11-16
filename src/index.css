@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   color: #1d1d1f;
   background: #fff;
   font-synthesis: none;
@@ -9,13 +9,13 @@
   -webkit-font-smoothing: antialiased;
   --graphite: #1d1d1f;
   --slate: #5b5b61;
-  --steel: #86868b;
+  --steel: #6b6b70;
   --divider: #d6d6d6;
   --mist: #e2e2e5;
   --cloud: #f5f5f7;
   --gallery: #fafafc;
-  --green: #16a34a;
-  --green-dark: #12813b;
+  --green: #15803d;
+  --green-dark: #166534;
   --orange: #b64400;
   scroll-behavior: smooth;
 }
@@ -41,7 +41,7 @@ button,
 input,
 select,
 textarea {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
 body.modal-open {
@@ -342,7 +342,7 @@ img {
   border-bottom: 1px solid #e8cc77;
   background: #fff3cd;
   color: #664d03;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 1.4;
   text-align: center;
@@ -371,7 +371,7 @@ img {
   border-radius: 0;
   background: var(--green-dark);
   color: #fff;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .header-contact-item {
@@ -453,7 +453,7 @@ img {
   border-radius: 999px;
   background: transparent;
   color: #fff;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   cursor: pointer;
   text-decoration: none;
@@ -522,7 +522,7 @@ img {
   border-radius: 9px;
   background: transparent;
   color: #f5f5f7;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.4;
   text-align: left;
   cursor: pointer;
@@ -622,7 +622,7 @@ img {
   outline: 0;
   background: transparent;
   color: #fff;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .search-bar input::placeholder {
@@ -658,13 +658,14 @@ img {
 .site-footer p,
 .product-modal p:not(.eyebrow),
 .project-modal p:not(.eyebrow) {
-  text-align: justify;
+  text-align: start;
+  text-wrap: pretty;
 }
 
 .eyebrow {
   margin: 0 0 13px;
   color: var(--steel);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.14em;
   line-height: 1.5;
@@ -711,7 +712,7 @@ img {
   padding: 0 20px;
   border: 1px solid transparent;
   border-radius: 999px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 650;
   cursor: pointer;
   transition:
@@ -773,7 +774,7 @@ img {
 
 .button-whatsapp {
   background: #25d366;
-  color: #fff;
+  color: #062b14;
 }
 
 .button-whatsapp:hover {
@@ -788,7 +789,7 @@ img {
   padding: 0;
   border: 0;
   background: transparent;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 650;
   cursor: pointer;
 }
@@ -846,7 +847,7 @@ img {
   border-radius: 999px;
   background: var(--cloud);
   color: var(--slate);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.06em;
 }
@@ -909,7 +910,7 @@ img {
 .hero-stats span {
   margin-top: 4px;
   color: var(--steel);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .hero-featured {
@@ -925,7 +926,7 @@ img {
   justify-content: space-between;
   margin-bottom: 2px;
   color: var(--steel);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.1em;
 }
@@ -938,7 +939,7 @@ img {
   border: 0;
   background: transparent;
   color: var(--graphite);
-  font-size: 10px;
+  font-size: 11px;
   cursor: pointer;
 }
 
@@ -987,18 +988,18 @@ img {
 
 .featured-card small {
   color: var(--steel);
-  font-size: 12px;
+  font-size: 13px;
   text-transform: uppercase;
 }
 
 .featured-card strong {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.35;
 }
 
 .featured-card em {
   color: var(--slate);
-  font-size: 12px;
+  font-size: 13px;
   font-style: normal;
 }
 
@@ -1026,7 +1027,7 @@ img {
   gap: 16px;
   padding: 13px 10px 0;
   color: var(--steel);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .hero-info-strip > span {
@@ -1119,13 +1120,13 @@ img {
 }
 
 .category-card strong {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.4;
 }
 
 .category-card small {
   color: var(--steel);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .category-card > svg {
@@ -1194,7 +1195,7 @@ img {
   border-radius: 999px;
   background: rgb(255 255 255 / 92%);
   color: var(--slate);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 650;
 }
 
@@ -1211,7 +1212,7 @@ img {
   border-radius: 999px;
   background: rgb(255 255 255 / 94%);
   color: var(--slate);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
 }
 
@@ -1224,7 +1225,7 @@ img {
 .project-type {
   margin-bottom: 9px;
   color: var(--steel);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.12em;
 }
@@ -1240,7 +1241,7 @@ img {
   gap: 6px;
   margin-top: 10px;
   color: var(--slate);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .project-location > span {
@@ -1251,7 +1252,7 @@ img {
 
 .project-location small {
   color: var(--slate);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .project-location svg {
@@ -1278,7 +1279,7 @@ img {
 .progress-label {
   margin-top: 7px;
   color: var(--steel);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .project-view-details {
@@ -1292,7 +1293,7 @@ img {
   padding: 0 14px;
   background: var(--green);
   color: #fff;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   transition: background-color 180ms ease;
 }
@@ -1358,7 +1359,7 @@ img {
   max-width: 500px;
   margin: 0;
   color: var(--slate);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.75;
 }
 
@@ -1446,7 +1447,7 @@ img {
   border-radius: 17px;
   background: var(--gallery);
   color: var(--slate);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.6;
 }
 
@@ -1488,7 +1489,7 @@ img {
 
 .catalog-sidebar h2 {
   margin: 0 8px 8px;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .category-filter {
@@ -1502,7 +1503,7 @@ img {
   border-radius: 10px;
   background: transparent;
   color: var(--slate);
-  font-size: 12px;
+  font-size: 13px;
   text-align: left;
   cursor: pointer;
 }
@@ -1528,13 +1529,13 @@ img {
 }
 
 .catalog-help strong {
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .catalog-help p {
   margin: 7px 0;
   color: var(--steel);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.5;
 }
 
@@ -1545,7 +1546,7 @@ img {
   align-items: center;
   gap: 7px;
   color: var(--green-dark);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
 }
 
@@ -1566,7 +1567,7 @@ img {
   gap: 12px;
   margin-bottom: 12px;
   color: var(--steel);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .catalog-toolbar span:first-child {
@@ -1641,7 +1642,7 @@ img {
   border-radius: 999px;
   background: var(--graphite);
   color: #fff;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-overflow: ellipsis;
@@ -1657,7 +1658,7 @@ img {
   border-radius: 999px;
   background: rgb(255 255 255 / 92%);
   color: var(--slate);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .product-card-content {
@@ -1667,7 +1668,7 @@ img {
 .product-category {
   margin: 0 0 6px;
   color: var(--steel);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.11em;
   text-transform: uppercase;
@@ -1714,13 +1715,13 @@ img {
   border-radius: 11px;
   background: #fff;
   color: var(--slate);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.35;
 }
 
 .product-spec-grid small {
   color: var(--steel);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.09em;
 }
@@ -1742,7 +1743,7 @@ img {
   border-radius: 999px;
   background: #fff;
   color: var(--slate);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .use-toggle {
@@ -1752,7 +1753,7 @@ img {
   border-radius: 999px;
   background: var(--graphite);
   color: #fff;
-  font-size: 12px;
+  font-size: 13px;
   cursor: pointer;
 }
 
@@ -1765,13 +1766,13 @@ img {
 }
 
 .product-price {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
 }
 
 .product-price.quote {
   color: var(--slate);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
 }
 
@@ -1800,7 +1801,7 @@ img {
 .availability {
   margin: 4px 0 0;
   color: var(--steel);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .empty-results {
@@ -1818,7 +1819,7 @@ img {
 .empty-results p {
   margin: 0;
   color: var(--steel);
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .projects-grid {
@@ -1854,7 +1855,7 @@ img {
 
 .project-modal > p:last-child {
   color: var(--steel);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.6;
 }
 
@@ -1892,7 +1893,7 @@ img {
 
 .portfolio-stats span {
   color: var(--steel);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .portfolio-image-grid {
@@ -1941,7 +1942,7 @@ img {
 }
 
 .portfolio-tile span {
-  font-size: 12px;
+  font-size: 13px;
   opacity: 0.8;
 }
 
@@ -1953,7 +1954,7 @@ img {
 
 .sample-note {
   color: var(--steel);
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1.6;
 }
 
@@ -1980,7 +1981,7 @@ img {
 .portfolio-cta p {
   margin: 0;
   color: var(--steel);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .services-grid {
@@ -2038,14 +2039,14 @@ img {
   border-radius: 50%;
   background: var(--cloud);
   color: var(--green-dark);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
 }
 
 .service-label {
   margin-top: 21px;
   color: var(--steel);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.12em;
 }
@@ -2059,14 +2060,14 @@ img {
 .service-card p {
   margin: 0 0 14px;
   color: var(--slate);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.65;
 }
 
 .service-card .text-button {
   min-height: 37px;
   margin-top: auto;
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .careers-banner {
@@ -2088,12 +2089,12 @@ img {
 }
 
 .careers-banner strong {
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .careers-banner span {
   color: var(--steel);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.5;
 }
 
@@ -2145,7 +2146,7 @@ img {
 
 .role-meta {
   color: var(--steel);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .role-card h3 {
@@ -2157,7 +2158,7 @@ img {
 .role-card p {
   margin: 0 0 13px;
   color: var(--slate);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.55;
 }
 
@@ -2165,7 +2166,7 @@ img {
   min-height: 36px;
   margin-top: auto;
   padding: 0 14px;
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .small-button svg {
@@ -2202,7 +2203,7 @@ img {
 .application-fallback p {
   margin: 5px 0 11px;
   color: var(--slate);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.55;
 }
 
@@ -2214,7 +2215,7 @@ img {
 
 .application-fallback a {
   color: var(--green-dark);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -2237,11 +2238,11 @@ img {
 .form-section-heading > p:last-child {
   margin: 0;
   color: var(--steel);
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .contact-form .form-section-heading > p:last-child {
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .form-grid {
@@ -2256,17 +2257,17 @@ img {
   flex-direction: column;
   gap: 7px;
   margin-bottom: 14px;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 650;
 }
 
 .contact-form label {
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .application-form label > span {
   color: var(--steel);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 400;
 }
 
@@ -2283,7 +2284,7 @@ img {
   border-radius: 999px;
   background: var(--cloud);
   color: var(--graphite);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .application-form textarea,
@@ -2301,7 +2302,7 @@ img {
   border-radius: 14px;
   background: var(--cloud);
   color: var(--slate);
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .wide-field {
@@ -2311,14 +2312,14 @@ img {
 .form-disclaimer {
   margin: 13px 0 0;
   color: var(--steel);
-  font-size: 9px;
+  font-size: 11px;
   line-height: 1.55;
 }
 
 .form-error {
   margin: -2px 0 13px;
   color: #b42318;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .contact-page {
@@ -2341,7 +2342,7 @@ img {
   max-width: 480px;
   margin: 15px 0 28px;
   color: var(--slate);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.75;
 }
 
@@ -2351,7 +2352,7 @@ img {
   gap: 13px;
   margin-bottom: 16px;
   color: var(--graphite);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.6;
 }
 
@@ -2377,13 +2378,13 @@ img {
 .contact-item > span:last-child {
   display: flex;
   flex-direction: column;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .contact-item small {
   margin-bottom: 3px;
   color: var(--steel);
-  font-size: 8px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.12em;
 }
@@ -2402,7 +2403,7 @@ img {
   padding-top: 17px;
   border-top: 1px solid var(--mist);
   color: var(--slate);
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .contact-trust span {
@@ -2433,7 +2434,7 @@ img {
 .contact-fallback p {
   margin: 5px 0 11px;
   color: var(--slate);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.55;
 }
 
@@ -2445,7 +2446,7 @@ img {
 
 .contact-fallback a {
   color: var(--green-dark);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -2466,7 +2467,7 @@ img {
 
 .inquiry-status {
   margin: 12px 0 0;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.6;
 }
 
@@ -2488,13 +2489,13 @@ img {
   border-radius: 16px;
   background: #edfbf1;
   color: #166534;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .selected-inquiry strong {
   margin-bottom: 2px;
   color: var(--graphite);
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .site-footer {
@@ -2522,20 +2523,26 @@ img {
   max-width: 235px;
   margin: 15px 0 0;
   color: #fff;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   line-height: 1.65;
 }
 
 .footer-grid h2 {
   margin: 4px 0 15px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   color: #fff;
 }
 
 .footer-grid h2.footer-accent-heading {
   color: var(--green);
+}
+
+.footer-reach-form {
+  grid-column: 1 / -1;
+  width: 100%;
+  min-width: 0;
 }
 
 .footer-pages {
@@ -2556,7 +2563,7 @@ img {
   justify-self: start;
   padding: 0;
   color: var(--green);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   text-decoration: none;
 }
@@ -2579,7 +2586,7 @@ img {
 .footer-stock p {
   margin: 0 0 10px;
   color: #fff;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   line-height: 1.65;
 }
@@ -2589,14 +2596,14 @@ img {
   display: block;
   margin-bottom: 9px;
   color: #fff;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
 }
 
 .footer-stock a {
   margin-top: 3px;
   color: #fff;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
 }
 
@@ -2618,7 +2625,7 @@ img {
   gap: 16px;
   border-top: 1px solid rgb(255 255 255 / 13%);
   color: #fff;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
 }
 
@@ -2728,7 +2735,7 @@ img {
   justify-content: space-between;
   gap: 12px;
   color: var(--slate);
-  font-size: 9px;
+  font-size: 11px;
 }
 
 .gallery-label span:first-child {
@@ -2756,7 +2763,7 @@ img {
   align-items: center;
   gap: 8px;
   color: var(--steel);
-  font-size: 9px;
+  font-size: 11px;
 }
 
 .rating-row > span:first-child {
@@ -2791,7 +2798,7 @@ img {
   border-bottom: 2px solid transparent;
   background: transparent;
   color: var(--steel);
-  font-size: 10px;
+  font-size: 11px;
   cursor: pointer;
 }
 
@@ -2806,7 +2813,7 @@ img {
   min-height: 90px;
   margin: 15px 0 0;
   color: var(--slate);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.7;
 }
 
@@ -2824,7 +2831,7 @@ img {
 
 .modal-spec-list dt {
   color: var(--steel);
-  font-size: 8px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -2832,7 +2839,7 @@ img {
 
 .modal-spec-list dd {
   margin: 5px 0 0;
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .shipping-note {
@@ -2843,7 +2850,7 @@ img {
   border: 1px solid var(--mist);
   border-radius: 15px;
   background: var(--gallery);
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .shipping-note strong {
@@ -2863,7 +2870,7 @@ img {
   margin-top: 12px;
   border-top: 1px solid var(--mist);
   color: var(--slate);
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .quantity-control {
@@ -2889,7 +2896,7 @@ img {
 }
 
 .quantity-control span {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
 }
 
@@ -2902,7 +2909,7 @@ img {
   min-width: 0;
   flex: 1;
   padding-inline: 12px;
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .inline-success {
@@ -2912,7 +2919,7 @@ img {
   border-radius: 12px;
   background: #edfbf1;
   color: #166534;
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1.5;
 }
 
@@ -2956,13 +2963,13 @@ img {
 
 .related-products span {
   overflow: hidden;
-  font-size: 9px;
+  font-size: 11px;
   text-overflow: ellipsis;
 }
 
 .related-products span:last-child {
   color: var(--steel);
-  font-size: 8px;
+  font-size: 11px;
 }
 
 .sr-only {
@@ -2983,7 +2990,7 @@ img {
 
 @media (max-width: 1100px) {
   .header-contact-card {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .header-contact-item {
@@ -2992,7 +2999,7 @@ img {
 
   .nav-link {
     padding-inline: 7px;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
   }
 
@@ -3159,7 +3166,7 @@ img {
     min-height: 45px;
     justify-content: flex-start;
     padding-inline: 14px;
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .nav-dropdown {
@@ -3258,7 +3265,7 @@ img {
   .offline-notice {
     min-height: 70px;
     padding: 10px 14px;
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .app-shell.is-offline {
@@ -3395,7 +3402,7 @@ img {
     min-height: 45px;
     justify-content: flex-start;
     padding-inline: 14px;
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .nav-dropdown {
@@ -3438,7 +3445,7 @@ img {
   }
 
   .search-bar input {
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .page-content {
@@ -3457,7 +3464,7 @@ img {
 
   .page-lede {
     margin-top: 14px;
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .hero-main {
@@ -3476,7 +3483,7 @@ img {
 
   .hub-badge {
     margin-bottom: 22px;
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .hero-copy h1 {
@@ -3484,7 +3491,7 @@ img {
   }
 
   .hero-description {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .hero-stats {
@@ -3503,7 +3510,7 @@ img {
   }
 
   .hero-stats span {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .hero-featured {
@@ -3524,7 +3531,7 @@ img {
     flex-direction: column;
     gap: 9px;
     padding: 15px 4px 0;
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .hero-info-strip > span:first-child {
@@ -3559,7 +3566,7 @@ img {
   }
 
   .category-card strong {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .home-categories,
@@ -3787,7 +3794,7 @@ img {
     right: 26px;
     bottom: 27px;
     left: 26px;
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .modal-details {
@@ -3836,7 +3843,7 @@ img {
   }
 
   .hub-badge {
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .category-grid {
@@ -3947,7 +3954,7 @@ img {
 
 .inventory-strip span {
   color: var(--slate);
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .service-area-chips {
@@ -3966,7 +3973,7 @@ img {
   border-radius: 999px;
   background: var(--cloud);
   color: var(--slate);
-  font-size: 9px;
+  font-size: 11px;
 }
 
 @media (max-width: 760px) {
@@ -3991,7 +3998,7 @@ img {
   }
 
   .inventory-strip span {
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .category-filter {
@@ -4000,5 +4007,276 @@ img {
 
   .small-button {
     min-height: 44px;
+  }
+}
+
+/* ==========================================================================
+   UI/UX refresh (2026-11) — accessibility, mobile conversion, modern polish
+   Guided by the UI/UX Pro Max checklist: AA contrast, ≥11px type floor,
+   16px form inputs (prevents iOS zoom), visible focus, reduced motion,
+   44px touch targets, SVG icons instead of glyphs.
+   ========================================================================== */
+
+:root {
+  --radius-card: 18px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --shadow-card: 0 1px 2px rgb(16 24 16 / 4%), 0 8px 24px -12px rgb(16 24 16 / 12%);
+  --shadow-card-hover: 0 2px 4px rgb(16 24 16 / 5%), 0 18px 40px -16px rgb(16 24 16 / 22%);
+  font-feature-settings: "cv11", "ss01";
+}
+
+/* Readable body copy */
+.page-content p:not(.eyebrow) {
+  line-height: 1.65;
+}
+
+/* Visible, on-brand focus ring that works on light and dark surfaces */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgb(255 255 255 / 85%);
+}
+
+.search-bar:focus-within {
+  border-color: rgb(255 255 255 / 55%);
+  box-shadow: 0 0 0 3px rgb(74 222 128 / 35%);
+}
+
+/* Consistent, purposeful motion */
+.button,
+.text-button,
+.nav-link,
+.category-card,
+.featured-card,
+.project-card,
+.search-bar {
+  transition:
+    background-color 180ms var(--ease-out),
+    border-color 180ms var(--ease-out),
+    color 180ms var(--ease-out),
+    box-shadow 220ms var(--ease-out),
+    transform 220ms var(--ease-out);
+}
+
+.button:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+@media (hover: hover) {
+  .category-card:hover,
+  .project-card:hover {
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-2px);
+  }
+}
+
+/* Status chips use SVG icons now */
+.status-icon {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  flex: 0 0 auto;
+  vertical-align: -2px;
+}
+
+.search-symbol svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+.contact-icon svg,
+.trust-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Footer: bright accent on black for AA contrast */
+.site-footer {
+  --green: #4ade80;
+  --green-dark: #86efac;
+}
+
+.footer-reach-form {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
+  align-items: center;
+  gap: clamp(20px, 4vw, 48px);
+  margin-top: 8px;
+  padding: clamp(22px, 3vw, 32px);
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: var(--radius-card);
+  background: linear-gradient(135deg, rgb(22 163 74 / 14%), rgb(255 255 255 / 3%));
+}
+
+.footer-reach-copy h2 {
+  margin: 0 0 8px;
+  color: #fff !important;
+  font-size: clamp(20px, 2.2vw, 26px) !important;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.footer-reach-copy p {
+  margin: 0;
+  color: rgb(255 255 255 / 72%);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.footer-reach-embed {
+  min-height: 120px;
+  min-width: 0;
+}
+
+/* Mobile quick-action bar (Call · WhatsApp · Quote) */
+.mobile-action-bar {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  /* The 7–10px contact strip was unreadable on phones; its actions now live
+     in the bottom bar, and hours stay on the Contact page and footer. */
+  .header-contact-band {
+    display: none;
+  }
+
+  /* 16px inputs stop iOS Safari from zooming on focus */
+  .search-bar input,
+  .contact-form input,
+  .contact-form select,
+  .contact-form textarea,
+  .application-form input:not([type="file"]),
+  .application-form select,
+  .application-form textarea {
+    font-size: 16px;
+  }
+
+  .footer-reach-form {
+    grid-template-columns: 1fr;
+  }
+
+  .mobile-action-bar {
+    position: fixed;
+    z-index: 45;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    padding: 10px max(12px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+    border-top: 1px solid rgb(0 0 0 / 8%);
+    background: rgb(255 255 255 / 92%);
+    -webkit-backdrop-filter: saturate(1.6) blur(14px);
+    backdrop-filter: saturate(1.6) blur(14px);
+    box-shadow: 0 -10px 30px -18px rgb(0 0 0 / 35%);
+  }
+
+  .mobile-action-bar a {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .mobile-action-bar svg {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 auto;
+  }
+
+  .mobile-action-call {
+    border: 1px solid var(--mist);
+    background: #fff;
+    color: var(--graphite);
+  }
+
+  .mobile-action-whatsapp {
+    background: #25d366;
+    color: #062b14;
+  }
+
+  .mobile-action-quote {
+    background: var(--green);
+    color: #fff;
+  }
+
+  /* Keep page content and the scroll-to-top button clear of the bar */
+  .app-shell {
+    padding-bottom: calc(72px + env(safe-area-inset-bottom));
+  }
+
+  .scroll-to-top {
+    bottom: calc(84px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .category-card:hover,
+  .project-card:hover,
+  .button:active {
+    transform: none;
+  }
+}
+
+.project-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.project-status svg {
+  width: 13px;
+  height: 13px;
+  flex: 0 0 auto;
+}
+
+/* Form fields: regular weight so typed values and placeholders don't read as
+   labels; placeholder meets 4.5:1 on the field fill */
+.application-form input:not([type="file"]),
+.application-form select,
+.application-form textarea,
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  min-height: 48px;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.application-form ::placeholder,
+.contact-form ::placeholder {
+  color: var(--steel);
+  opacity: 1;
+}
+
+@media (max-width: 760px) {
+  .application-form input:not([type="file"]),
+  .application-form select,
+  .application-form textarea,
+  .contact-form input,
+  .contact-form select,
+  .contact-form textarea {
+    font-size: 16px;
   }
 }

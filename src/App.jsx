@@ -498,6 +498,81 @@ function Pin() {
   );
 }
 
+function SearchIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 20 20" fill="none">
+      <circle cx="9" cy="9" r="5.5" stroke="currentColor" strokeWidth="1.7" />
+      <path d="m13.2 13.2 3.3 3.3" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function ClockIcon({ className }) {
+  return (
+    <svg aria-hidden="true" className={className} viewBox="0 0 20 20" fill="none">
+      <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="1.7" />
+      <path d="M10 6.5V10l2.5 1.6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function PhoneIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 20 20" fill="none">
+      <path
+        d="M6.6 3.5H4.8a1.3 1.3 0 0 0-1.3 1.4 12.5 12.5 0 0 0 11.6 11.6 1.3 1.3 0 0 0 1.4-1.3v-1.8a1 1 0 0 0-.8-1l-2.4-.6a1 1 0 0 0-1 .3l-.9 1a9.6 9.6 0 0 1-4-4l1-.9a1 1 0 0 0 .3-1l-.6-2.4a1 1 0 0 0-1-.8Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function ChatIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 20 20" fill="none">
+      <path
+        d="M10 3.5a6.5 6.5 0 0 0-5.6 9.8L3.5 16.5l3.3-.9A6.5 6.5 0 1 0 10 3.5Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function TruckIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 20 20" fill="none">
+      <path d="M2.5 5.5h9v8h-9zM11.5 8.5h3l2.5 2.6v2.4h-5.5" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      <circle cx="6" cy="14.5" r="1.5" fill="#fff" stroke="currentColor" strokeWidth="1.5" />
+      <circle cx="14" cy="14.5" r="1.5" fill="#fff" stroke="currentColor" strokeWidth="1.5" />
+    </svg>
+  );
+}
+
+function MobileActionBar({ setPage }) {
+  return (
+    <nav className="mobile-action-bar" aria-label="Quick contact">
+      <a className="mobile-action-call" href={`tel:${CONTACT.phone}`}><PhoneIcon />Call</a>
+      <a className="mobile-action-whatsapp" href={CONTACT.whatsapp} target="_blank" rel="noreferrer"><ChatIcon />WhatsApp</a>
+      <a
+        className="mobile-action-quote"
+        href={pagePaths.Contact}
+        onClick={(event) => {
+          if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+          event.preventDefault();
+          setPage("Contact");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+      >
+        Get quote
+      </a>
+    </nav>
+  );
+}
+
 function Brand({ setPage }) {
   return (
     <a
@@ -764,7 +839,7 @@ function Header({
         onSubmit={submitSearch}
         role="search"
       >
-        <span className="search-symbol" aria-hidden="true">⌕</span>
+        <span className="search-symbol" aria-hidden="true"><SearchIcon /></span>
         <input
           ref={searchInputRef}
           aria-label="Search products"
@@ -1016,7 +1091,7 @@ function HomePage({ setPage, openProduct }) {
         </div>
         <div className="hero-info-strip">
           <span><Pin />{CONTACT.address}</span>
-          <span><b>↗</b>60+ GPS-tracked trucks</span>
+          <span><TruckIcon />60+ GPS-tracked trucks</span>
           <span><Check />Batch traceable cement supply</span>
         </div>
       </section>
@@ -1126,7 +1201,7 @@ function ProjectCard({ project, onOpen }) {
       <span className="project-image">
         <img src={project.photo.src} alt="" loading="lazy" />
         <span className={`project-status ${project.status === "Completed" ? "complete" : ""}`}>
-          {project.status === "Completed" ? "✓" : "◷"} {project.status}
+          {project.status === "Completed" ? <Check /> : <ClockIcon className="status-icon" />} {project.status}
         </span>
         <span className="project-image-note">{project.photo.location}</span>
       </span>
@@ -1311,7 +1386,7 @@ function ContactPage({ inquiryItems }) {
         <p>Tell us what you&apos;re working on. We can help with materials, delivery and house construction enquiries.</p>
         <div className="contact-item"><Pin /><span><small>VISIT THE HUB</small>{CONTACT.address}</span></div>
         <a className="contact-item" href={`mailto:${CONTACT.email}`}><span className="contact-icon">@</span><span><small>EMAIL</small>{CONTACT.email}</span></a>
-        <a className="contact-item" href={`tel:${CONTACT.phone}`}><span className="contact-icon">↗</span><span><small>CALL / WHATSAPP</small>{CONTACT.phone}</span></a>
+        <a className="contact-item" href={`tel:${CONTACT.phone}`}><span className="contact-icon"><PhoneIcon /></span><span><small>CALL / WHATSAPP</small>{CONTACT.phone}</span></a>
         <div className="contact-quick-actions"><a className="button button-whatsapp" href={CONTACT.whatsapp} target="_blank" rel="noreferrer">WhatsApp the Mfuom team <Arrow diagonal /></a><a className="button button-light" href={`tel:${CONTACT.phone}`}>Call the hub <Arrow diagonal /></a></div>
         <div className="contact-trust"><span><Check /> GPS-tracked delivery</span>        <span><Check /> GSA-certified supply</span>
         <span><Check /> Batch-traceable cement</span><span><Check /> Confirm current stock with our team</span></div>
@@ -1351,6 +1426,10 @@ function Footer({ setPage }) {
         <div className="footer-pages"><h2>PAGES</h2>{navigation.map((page) => <a key={page} href={pagePaths[page]} onClick={(event) => { if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return; event.preventDefault(); setPage(page); window.scrollTo({ top: 0, behavior: "smooth" }); }}>{page}</a>)}</div>
         <div className="footer-contact"><h2 className="footer-accent-heading">LOCATE US</h2><p>{CONTACT.address}</p><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a><a href={`tel:${CONTACT.phone}`}>{CONTACT.phone}</a><span>60+ GPS trucks · 24–48h dispatch*</span></div>
         <div className="footer-stock"><h2 className="footer-accent-heading">ISAPHILO ENTERPRISE STOCK</h2><p>Azar · Coral · Leyland · Shield · Dolphin · Dominion</p><p>Marine plywood · POP &amp; Knauf · Security doors</p><a className="footer-whatsapp-link" href={CONTACT.whatsapp} target="_blank" rel="noreferrer">Message us on WhatsApp <Arrow diagonal /></a></div>
+        <div className="footer-reach-form">
+          <div className="footer-reach-copy"><h2>Get price updates &amp; new stock alerts</h2><p>Cement, steel and paint prices move often. Join the IsaPhilo list and we&apos;ll let you know when stock lands at Mfuom.</p></div>
+          <div className="footer-reach-embed" data-reach-form="19ead09d-b56f-4cc2-a142-50c4ca9593b5"></div>
+        </div>
       </div>
       <div className="wide-shell footer-bottom"><span>© {new Date().getFullYear()} IsaPhilo Enterprise</span><span>*Delivery timing and availability vary by destination and stock.</span></div>
     </footer>
@@ -1624,6 +1703,7 @@ export default function App() {
       />
       <main className="page-content wide-shell">{pageComponents[page]}</main>
       <Footer setPage={setPage} />
+      <MobileActionBar setPage={setPage} />
       {showScrollTop && <button className="scroll-to-top" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} type="button" aria-label="Scroll to top"><ArrowUp /></button>}
       {selectedProduct && <ProductModal product={selectedProduct} onClose={() => setSelectedProduct(null)} onOpenRelated={setSelectedProduct} onAddToInquiry={addToInquiry} />}
     </div>
