@@ -4668,3 +4668,32 @@ textarea:focus-visible,
     margin-left: 4px;
   }
 }
+
+/* Search bar: white field on every screen size (mobile, tablet, desktop),
+   overriding the original translucent dark pill defined near the top of
+   this file. Text, placeholder and icon switch to dark greys for contrast
+   (placeholder #6b6b70 ≈ 5:1 on white). The green submit button is unchanged. */
+.search-bar {
+  border-color: #fff;
+  background: #fff;
+  box-shadow: 0 6px 18px -10px rgb(0 0 0 / 45%);
+}
+
+.search-bar input {
+  color: #1d1d1f; /* site body text colour */
+}
+
+.search-bar input::placeholder {
+  color: #6b6b70;
+  opacity: 1; /* Firefox dims placeholders by default */
+}
+
+.search-symbol {
+  color: #6b6b70;
+}
+
+/* Focus: green ring instead of the old white border, which vanished on white */
+.search-bar:focus-within {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgb(74 222 128 / 35%);
+}
