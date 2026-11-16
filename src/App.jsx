@@ -942,7 +942,6 @@ function HomePage({ setPage, openProduct }) {
       <section className="home-hero">
         <div className="hero-main">
           <div className="hero-copy">
-            <span className="hub-badge"><span /> MFUOM LAST STOP HUB · 60+ GPS TRUCKS</span>
             <p className="eyebrow">{pageCopy.Home.eyebrow}</p>
             <h1>{pageCopy.Home.title[0]}<span>{pageCopy.Home.title[1]}</span></h1>
             <p className="hero-description">{pageCopy.Home.description}</p>
