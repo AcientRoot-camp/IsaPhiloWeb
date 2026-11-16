@@ -361,9 +361,12 @@ img {
   top: 52px;
 }
 
+/* Header contact line (days, hours, phone, email) above the logo row.
+   Transparent so the header's --chrome-bg gradient shows through; hidden on
+   phones (≤760px), where the bottom action bar carries Call/WhatsApp. */
 .header-contact-band {
   padding: 8px 0;
-  background: #000;
+  background: transparent;
 }
 
 .header-contact-card {
@@ -374,7 +377,7 @@ img {
   gap: 0;
   padding: 7px 12px;
   border-radius: 0;
-  background: var(--green-dark);
+  background: transparent;
   color: #fff;
   font-size: 13px;
 }
@@ -412,12 +415,14 @@ img {
   background: transparent;
 }
 
+/* Desktop header row: logo, then page links, then the search icon, all
+   packed to the left. ≤920px switches to the mobile grid further down. */
 .header-row {
   display: flex;
   min-height: 78px;
   align-items: center;
-  justify-content: space-between;
-  gap: 20px;
+  justify-content: flex-start;
+  gap: clamp(20px, 3vw, 40px);
   padding-block: 6px;
 }
 
@@ -441,10 +446,12 @@ img {
   object-fit: contain;
 }
 
+/* Desktop page links (Home … Contact). On ≤920px this becomes the
+   drop-down panel opened by .mobile-menu-toggle. */
 .main-nav {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: 4px;
 }
 
@@ -570,6 +577,8 @@ img {
   scrollbar-width: thin;
 }
 
+/* Hamburger button (three white lines, no background). Hidden on desktop;
+   shown by the ≤920px media queries. */
 .mobile-menu-toggle {
   display: none;
   width: 44px;
@@ -584,6 +593,9 @@ img {
   cursor: pointer;
 }
 
+/* Search icon button. Hidden by default; the ≤920px rules show it on mobile
+   and the (min-width: 921px) block near the end of this file shows it after
+   Contact on desktop. Clicking it toggles .search-bar.is-mobile-open. */
 .mobile-search-toggle {
   display: none;
 }
@@ -2459,6 +2471,7 @@ img {
   font-size: 12px;
 }
 
+/* Footer surface: same green-to-charcoal gradient as the header (--chrome-bg). */
 .site-footer {
   width: 100%;
   border-top: 1px solid rgb(255 255 255 / 10%);
@@ -2501,6 +2514,8 @@ img {
   color: var(--green);
 }
 
+/* Hostinger Reach sign-up card ("Get price updates & new stock alerts")
+   spans the full footer grid width. */
 .footer-reach-form {
   grid-column: 1 / -1;
   width: 100%;
@@ -3031,7 +3046,7 @@ img {
     gap: 0;
     overflow: hidden;
     padding: 4px 2px;
-    background: #000;
+    background: transparent;
     font-size: clamp(7px, 2.4vw, 10px);
   }
 
@@ -3256,7 +3271,7 @@ img {
     gap: 0;
     overflow: hidden;
     padding: 4px 2px;
-    background: #000;
+    background: transparent;
     color: #fff;
     font-size: clamp(7px, 2.4vw, 10px);
   }
@@ -4409,4 +4424,247 @@ textarea:focus-visible,
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   line-clamp: 2;
+}
+
+/* Desktop search: an icon after Contact that opens the search bar below the header row.
+   Mobile (≤920px) keeps its own search-button design defined above. */
+@media (min-width: 921px) {
+  .mobile-search-toggle {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 auto;
+    place-items: center;
+    margin-left: clamp(8px, 1.6vw, 24px);
+    padding: 0;
+    border: 1px solid rgb(255 255 255 / 18%);
+    border-radius: 50%;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 180ms var(--ease-out), border-color 180ms var(--ease-out);
+  }
+
+  .mobile-search-toggle svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .mobile-search-toggle:hover,
+  .mobile-search-toggle.is-active {
+    border-color: var(--green);
+    background: rgb(255 255 255 / 8%);
+  }
+
+  .mobile-search-toggle:focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 2px;
+  }
+
+  .search-bar {
+    display: none;
+  }
+
+  .search-bar.is-mobile-open {
+    display: flex;
+    animation: search-bar-in 180ms var(--ease-out);
+  }
+}
+
+@keyframes search-bar-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .search-bar.is-mobile-open { animation: none; }
+}
+
+/* Install-the-app prompt (src/InstallPrompt.jsx) */
+.install-prompt {
+  position: fixed;
+  z-index: 60;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  width: min(440px, calc(100% - 32px));
+  padding: 16px 44px 16px 16px;
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 20px;
+  background: var(--chrome-bg-solid);
+  background: var(--chrome-bg);
+  color: #fff;
+  box-shadow: 0 22px 50px -18px rgb(0 0 0 / 55%);
+  animation: install-prompt-in 260ms var(--ease-out);
+}
+
+.install-prompt-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+}
+
+.install-prompt-copy p {
+  margin: 0 0 3px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.install-prompt-copy span {
+  display: block;
+  color: rgb(255 255 255 / 76%);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.install-prompt-copy strong {
+  color: #fff;
+}
+
+.install-inline-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin: 0 2px -3px;
+  vertical-align: baseline;
+  color: #4ade80;
+}
+
+.install-prompt-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.install-prompt-primary,
+.install-prompt-secondary {
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.install-prompt-primary {
+  background: #16a34a;
+  color: #fff;
+}
+
+.install-prompt-primary:hover {
+  background: #15803d;
+}
+
+.install-prompt-secondary {
+  min-height: 32px;
+  border-color: rgb(255 255 255 / 18%);
+  background: transparent;
+  color: rgb(255 255 255 / 85%);
+  font-size: 13px;
+}
+
+.install-prompt-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: rgb(255 255 255 / 70%);
+  cursor: pointer;
+}
+
+.install-prompt-close svg {
+  width: 18px;
+  height: 18px;
+}
+
+.install-prompt-close:hover {
+  background: rgb(255 255 255 / 10%);
+  color: #fff;
+}
+
+.install-prompt button:focus-visible {
+  outline: 2px solid #4ade80;
+  outline-offset: 2px;
+}
+
+@keyframes install-prompt-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 760px) {
+  /* Sit above the Call / WhatsApp / Get quote bar */
+  .install-prompt {
+    right: 12px;
+    bottom: calc(80px + env(safe-area-inset-bottom));
+    left: 12px;
+    width: auto;
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 12px;
+    padding: 14px 42px 14px 14px;
+  }
+
+  .install-prompt-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .install-prompt-actions {
+    grid-column: 1 / -1;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+  }
+
+  .install-prompt-actions button {
+    flex: 1 1 0;
+    min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .install-prompt { animation: none; }
+}
+
+/* Header page links in capitals (HOME, ABOUT … CONTACT). Done in CSS so the
+   page names in App.jsx / seo-pages.json stay normal case for titles and SEO.
+   A little letter-spacing keeps all-caps readable; applies to the mobile
+   drop-down menu too. Drop-down options (.dropdown-option) are unchanged. */
+.nav-link {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Narrow desktops (921–1100px): all-caps links are wider, so tighten padding,
+   size and gaps or CONTACT and the search icon overflow the header. */
+@media (min-width: 921px) and (max-width: 1100px) {
+  .header-row {
+    gap: 14px;
+  }
+
+  .main-nav {
+    gap: 0;
+  }
+
+  .nav-link {
+    padding: 0 8px;
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
+  }
+
+  .mobile-search-toggle {
+    margin-left: 4px;
+  }
 }

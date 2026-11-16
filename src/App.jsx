@@ -4,6 +4,7 @@ import seoPages from "../seo-pages.json";
 import { createSeoStructuredData } from "./seo-structured-data.js";
 import { pageCopy } from "./page-copy.js";
 import { services } from "./services.js";
+import InstallPrompt from "./InstallPrompt.jsx";
 
 const CONTACT = {
   address:
@@ -15,6 +16,8 @@ const CONTACT = {
 const FORM_SUBMIT_ENDPOINT = `https://formsubmit.co/${CONTACT.email}`;
 const FORM_SUBMIT_AJAX_ENDPOINT = `https://formsubmit.co/ajax/${CONTACT.email}`;
 
+// Contact-form error handling: map HTTP status codes from FormSubmit to plain
+// messages, always ending with a phone/WhatsApp fallback and the code for debugging.
 const CONTACT_FALLBACK = "You can also reach us by phone or WhatsApp.";
 const HTTP_ERROR_MESSAGES = {
   400: "Some details couldn’t be read. Check the form and try again.",
@@ -30,6 +33,8 @@ const HTTP_ERROR_MESSAGES = {
   504: "The inquiry service took too long to respond. Please try again.",
 };
 
+// Returns the user-facing message for a failed form request.
+// Unknown 5xx codes get a generic server message; anything else a generic retry message.
 function describeHttpError(status) {
   const message =
     HTTP_ERROR_MESSAGES[status] ??
@@ -39,6 +44,7 @@ function describeHttpError(status) {
   return `${message} ${CONTACT_FALLBACK} (Error ${status})`;
 }
 
+// Page links in header order. Names must match keys in seo-pages.json.
 const navigation = [
   "Home",
   "About",
@@ -58,6 +64,7 @@ const pageFromPath = Object.fromEntries(
   Object.entries(pagePaths).map(([page, path]) => [path, page]),
 );
 const pageMetadata = seoPages;
+// Pseudo-page shown for unknown paths (rendered with a noindex robots tag).
 const NOT_FOUND_PAGE = "NotFound";
 // Home-page category thumbnails: use a clean packshot (white background) where
 // the category's first product only has a scene photo.
@@ -436,6 +443,8 @@ function TruckIcon() {
   );
 }
 
+// Fixed bottom bar on phones (≤760px): Call, WhatsApp and Get quote.
+// Hidden on larger screens by CSS. The install prompt sits above it.
 function MobileActionBar({ setPage }) {
   return (
     <nav className="mobile-action-bar" aria-label="Quick contact">
@@ -457,6 +466,8 @@ function MobileActionBar({ setPage }) {
   );
 }
 
+// Logo link used in both header and footer. Uses the transparent green PNG
+// made for the dark header/footer background.
 function Brand({ setPage }) {
   return (
     <a
@@ -475,6 +486,9 @@ function Brand({ setPage }) {
   );
 }
 
+// Site header: contact line, logo + page links + search icon, and the
+// collapsible search bar. `mobileSearchOpen` controls the search bar on
+// every screen size (the name predates the desktop search icon).
 function Header({
   page,
   setPage,
@@ -544,7 +558,13 @@ function Header({
   }
 
   useEffect(() => {
-    if (mobileSearchOpen) searchInputRef.current?.focus();
+    if (!mobileSearchOpen) return undefined;
+    searchInputRef.current?.focus();
+    function closeOnEscape(event) {
+      if (event.key === "Escape") setMobileSearchOpen(false);
+    }
+    document.addEventListener("keydown", closeOnEscape);
+    return () => document.removeEventListener("keydown", closeOnEscape);
   }, [mobileSearchOpen]);
 
   useEffect(() => {
@@ -595,19 +615,6 @@ function Header({
       <div className="header-main">
         <div className="wide-shell header-row">
           <Brand setPage={setPage} />
-          <button
-            className="mobile-search-toggle"
-            type="button"
-            aria-expanded={mobileSearchOpen}
-            aria-controls="site-search"
-            aria-label={mobileSearchOpen ? "Close product search" : "Open product search"}
-            onClick={() => setMobileSearchOpen((open) => !open)}
-          >
-            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
-              <circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" strokeWidth="1.8" />
-              <path d="m16 16 4.2 4.2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-            </svg>
-          </button>
           <nav
             ref={navRef}
             className={`main-nav${menuOpen ? " is-open" : ""}`}
@@ -703,6 +710,20 @@ function Header({
               );
             })}
           </nav>
+          {/* Search icon: sits after Contact on desktop, centred on mobile; opens the search bar below */}
+          <button
+            className={`mobile-search-toggle${mobileSearchOpen ? " is-active" : ""}`}
+            type="button"
+            aria-expanded={mobileSearchOpen}
+            aria-controls="site-search"
+            aria-label={mobileSearchOpen ? "Close product search" : "Open product search"}
+            onClick={() => setMobileSearchOpen((open) => !open)}
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+              <circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" strokeWidth="1.8" />
+              <path d="m16 16 4.2 4.2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            </svg>
+          </button>
           <button
             className="mobile-menu-toggle"
             type="button"
@@ -1393,6 +1414,7 @@ function LoadingSkeleton({ isOffline }) {
   );
 }
 
+// 404 view for unknown routes; offers links back to Home, Products and Contact.
 function NotFoundPage({ setPage }) {
   const goTo = (target) => {
     setPage(target);
@@ -1616,6 +1638,7 @@ export default function App() {
       <main className="page-content wide-shell">{pageComponents[page]}</main>
       <Footer setPage={setPage} />
       <MobileActionBar setPage={setPage} />
+      <InstallPrompt />
       {showScrollTop && <button className="scroll-to-top" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} type="button" aria-label="Scroll to top"><ArrowUp /></button>}
       {selectedProduct && <ProductModal product={selectedProduct} onClose={() => setSelectedProduct(null)} onOpenRelated={setSelectedProduct} onAddToInquiry={addToInquiry} />}
     </div>
