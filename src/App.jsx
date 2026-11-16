@@ -470,7 +470,7 @@ function Brand({ setPage }) {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }}
     >
-      <img src="/isaphilo-logo.jpg" alt="" />
+      <img src="/isaphilo-logo-green.png" alt="" width="600" height="274" />
     </a>
   );
 }
