@@ -33,6 +33,28 @@ const business = {
     { "@type": "AdministrativeArea", name: "Western Region, Ghana" },
     { "@type": "AdministrativeArea", name: "Ashanti Region, Ghana" },
   ],
+  // Matches the hours shown in the site header: Monday–Saturday 7am–6pm, Sunday closed.
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      opens: "07:00",
+      closes: "18:00",
+    },
+  ],
+};
+
+// Plain facts reused by the build-time pre-renderer and llms.txt checks.
+export const businessFacts = {
+  name: business.name,
+  address:
+    "IsaPhilo Enterprise, Mfuom Last Stop, Cemetery Road, Mfuom, Dunkwa-On-Offin, Central Region, Ghana",
+  phone: business.telephone,
+  phoneLabel: "+233 20 192 8965",
+  email: business.email,
+  whatsapp: "https://wa.me/233201928965",
+  hours: "Monday–Saturday, 7am–6pm. Closed Sunday.",
+  areaServed: "Central, Western and Ashanti Regions of Ghana",
 };
 
 export function createSeoStructuredData(page, metadata) {

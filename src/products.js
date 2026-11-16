@@ -1,6 +1,6 @@
 const photos = {
   ghacem: "/products/ghacem-extra.jpg",
-  dzata: "/products/dzata-cement.jpg",
+  dzata: "/products/dzata-cement.png",
   diamond: "/products/diamond-cement.jpg",
   blocks: "/products/blocks.jpg",
   plaster: "/products/plasterboard.jpg",
@@ -660,7 +660,7 @@ const groups = [
       "/products/coralatex.png",
       "/products/dulux-ecosure-primer.png",
       "/products/deluxy-emulsion.png",
-      "/products/finenest-emulsion.webp",
+      "/products/finenest-emulsion.png",
       "/products/leyland-emulsion-10l.png",
     ],
     imageAlts: [
@@ -1036,6 +1036,20 @@ const groups = [
   },
 ];
 
+// One-sentence card description: the first sentence of the product's own
+// description, or (for products without one) its pack size and uses.
+function joinList(items) {
+  const lower = items.map((item) => item.toLowerCase());
+  return lower.length > 1 ? `${lower.slice(0, -1).join(", ")} and ${lower.at(-1)}` : lower[0];
+}
+
+function productSummary(group, index) {
+  const description = group.descriptions?.[index];
+  if (description) return description.split(/(?<=\.)\s+/)[0];
+  const pack = group.packagings?.[index] ?? group.pack;
+  return `${pack} for ${joinList(group.uses)}.`;
+}
+
 export const products = groups.flatMap((group) =>
   group.names.map((name, index) => {
     const priceValue = group.prices?.[index] ?? null;
@@ -1058,6 +1072,7 @@ export const products = groups.flatMap((group) =>
         : "Request a quote",
       stock: "Confirm current availability",
       description: group.descriptions?.[index] ?? `${name} supplied through IsaPhilo Enterprise's Mfuom hub. Contact the team to confirm current availability, specifications, delivery options and project quantities before ordering.`,
+      summary: productSummary(group, index),
       specs: group.productSpecs?.[index] ?? group.specs ?? [
         { label: "Category", value: group.category },
         { label: "Pack / size", value: group.pack },

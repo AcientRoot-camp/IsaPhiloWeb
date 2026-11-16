@@ -2,6 +2,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { productCategories, products } from "./products.js";
 import seoPages from "../seo-pages.json";
 import { createSeoStructuredData } from "./seo-structured-data.js";
+import { pageCopy } from "./page-copy.js";
+import { services } from "./services.js";
 
 const CONTACT = {
   address:
@@ -12,6 +14,30 @@ const CONTACT = {
 };
 const FORM_SUBMIT_ENDPOINT = `https://formsubmit.co/${CONTACT.email}`;
 const FORM_SUBMIT_AJAX_ENDPOINT = `https://formsubmit.co/ajax/${CONTACT.email}`;
+
+const CONTACT_FALLBACK = "You can also reach us by phone or WhatsApp.";
+const HTTP_ERROR_MESSAGES = {
+  400: "Some details couldn’t be read. Check the form and try again.",
+  403: "This inquiry was blocked by the form service.",
+  404: "The inquiry service couldn’t be found.",
+  408: "The request timed out — this can happen on slow mobile data. Please try again.",
+  413: "Your message is too large to send. Shorten it and try again.",
+  422: "Some details look invalid. Check your email address and try again.",
+  429: "Too many attempts in a short time. Wait a minute, then try again.",
+  500: "The inquiry service had a problem. Please try again in a moment.",
+  502: "The inquiry service is temporarily unreachable. Please try again shortly.",
+  503: "The inquiry service is temporarily unavailable. Please try again shortly.",
+  504: "The inquiry service took too long to respond. Please try again.",
+};
+
+function describeHttpError(status) {
+  const message =
+    HTTP_ERROR_MESSAGES[status] ??
+    (status >= 500
+      ? "The inquiry service is having problems. Please try again shortly."
+      : "Your inquiry couldn’t be sent. Please try again.");
+  return `${message} ${CONTACT_FALLBACK} (Error ${status})`;
+}
 
 const navigation = [
   "Home",
@@ -32,6 +58,14 @@ const pageFromPath = Object.fromEntries(
   Object.entries(pagePaths).map(([page, path]) => [path, page]),
 );
 const pageMetadata = seoPages;
+const NOT_FOUND_PAGE = "NotFound";
+// Home-page category thumbnails: use a clean packshot (white background) where
+// the category's first product only has a scene photo.
+const CATEGORY_THUMBNAILS = {
+  "iron-rods": "/products/iron-rods/b5-high-tensile.jpg",
+  plywood: "/products/okorder-plywood/waterproof-film-18mm.jpg",
+};
+const DEFAULT_ROBOTS = "index, follow, max-image-preview:large";
 
 function updateMetaContent(selector, content) {
   document.querySelector(selector)?.setAttribute("content", content);
@@ -255,156 +289,6 @@ const projects = [
   },
 ];
 
-const services = [
-  {
-    id: "maintenance",
-    number: "01",
-    title: "Maintenance",
-    text: "Discuss building upkeep, repairs and maintenance needs for your property with the IsaPhilo team.",
-    label: "BUILDING CARE",
-    image: "/projects/completed-mfuom.jpg",
-    imageAlt: "Completed residential building in Mfuom, Ghana; representative building-care context",
-  },
-  {
-    id: "design-build",
-    number: "02",
-    title: "Design & Build",
-    text: "Talk through design, materials and construction requirements for a residential or commercial project.",
-    label: "PLAN TO BUILD",
-    image: "/projects/accra-construction.jpg",
-    imageAlt: "Building under construction in Ghana; representative design-and-build context",
-  },
-  {
-    id: "plumbing",
-    number: "03",
-    title: "Plumbing",
-    text: "Enquire about plumbing work and materials for new builds, renovations and property maintenance.",
-    label: "WATER SYSTEMS",
-    image: "/projects/ongoing-site-4.jpg",
-    imageAlt: "Residential building under construction in Dunkwa-On-Offin, Ghana; representative plumbing-project context",
-  },
-  {
-    id: "land-surveying",
-    number: "04",
-    title: "Land Surveying",
-    text: "Ask about land measurement and survey support to help inform site planning and construction decisions.",
-    label: "SITE PLANNING",
-    image: "/projects/ongoing-site-1.jpg",
-    imageAlt: "Building project in Compound, Central Region, Ghana; representative site-planning context",
-  },
-  {
-    id: "masonry",
-    number: "05",
-    title: "Masonry",
-    text: "Enquire about masonry work for walls and other building elements, based on your project requirements.",
-    label: "BLOCK & BRICK WORK",
-    image: "/projects/ongoing-site-3.jpg",
-    imageAlt: "Workers laying concrete blocks at a site in Dunkwa-On-Offin, Ghana",
-  },
-  {
-    id: "building-construction",
-    number: "06",
-    title: "Building Construction",
-    text: "Discuss construction support for your build, from the project scope and materials to on-site requirements.",
-    label: "RESIDENTIAL & COMMERCIAL",
-    image: "/projects/ghana-house-construction.jpg",
-    imageAlt: "House under construction in Ghana; representative building-construction context",
-  },
-  {
-    id: "block-laying",
-    number: "07",
-    title: "Block Laying",
-    text: "Ask about block-laying work and the material quantities needed for your walls and partitions.",
-    label: "BLOCKWORK",
-    image: "/products/blocks.jpg",
-    imageAlt: "Concrete blocks stacked at a building-materials yard",
-  },
-  {
-    id: "material-supply",
-    number: "08",
-    title: "Material Supply",
-    text: "Source building materials through the Mfuom hub and confirm current stock, quantities and delivery options.",
-    label: "BUILDING MATERIALS",
-    image: "/products/ghacem-extra.jpg",
-    imageAlt: "GHACEM Extra cement bag, a Ghana-market product reference",
-    imageFit: "contain",
-  },
-  {
-    id: "sales",
-    number: "09",
-    title: "Sales",
-    text: "Contact the team for product information, quotations and help confirming availability for your project.",
-    label: "PRODUCT ENQUIRIES",
-    image: "/products/diamond-cement.jpg",
-    imageAlt: "Diamond Cement bag, a Ghana-market product reference",
-    imageFit: "contain",
-  },
-  {
-    id: "tiles-pop-installation",
-    number: "10",
-    title: "Tiles & POP Installation",
-    text: "Discuss tile and POP ceiling installation requirements, Knauf board systems, finishes and materials for your space.",
-    label: "INTERIOR FINISHING",
-    image: "/products/plasterboard.jpg",
-    imageAlt: "Plasterboard sheets used for ceiling and interior finishing; representative product image",
-  },
-  {
-    id: "other-building-services",
-    number: "11",
-    title: "Other Building Services",
-    text: "Have a different building need? Share your project scope and location so the team can discuss next steps.",
-    label: "PROJECT SUPPORT",
-    image: "/projects/completed-site-3.jpg",
-    imageAlt: "Completed residential building in Ghana; representative project-support context",
-  },
-  {
-    id: "gps-tracked-delivery",
-    number: "12",
-    title: "GPS-Tracked Delivery",
-    text: "Coordinate building-material dispatch from Mfuom across the service areas; delivery timing depends on stock and destination.",
-    label: "DELIVERY COORDINATION",
-    image: "/projects/ongoing-site-1.jpg",
-    imageAlt: "Building under construction in Compound, Central Region; representative delivery context",
-  },
-  {
-    id: "mfuom-block-factory",
-    number: "13",
-    title: "Mfuom Block Factory",
-    text: "Enquire about solid and hollow blocks, interlocking blocks and paving for residential and commercial projects.",
-    label: "BLOCKS & PAVING",
-    image: "/products/blocks.jpg",
-    imageAlt: "Concrete blocks stacked at a building-materials yard",
-  },
-  {
-    id: "ghana-paints-tinting",
-    number: "14",
-    title: "Ghana Paints & Tinting",
-    text: "Ask about Ghana-market paint options and colour tinting, subject to current brands, stock and requirements.",
-    label: "PAINT & FINISHES",
-    image: "/products/azar-tex.png",
-    imageAlt: "AzarTex emulsion paint pail, a Ghana-market product reference",
-    imageFit: "contain",
-  },
-  {
-    id: "steel-cut-bend",
-    number: "15",
-    title: "Steel Cut & Bend",
-    text: "Discuss reinforcement steel preparation, including cut-and-bend requirements for your project.",
-    label: "REINFORCEMENT",
-    image: "/products/rebar.jpg",
-    imageAlt: "Close-up of ribbed steel reinforcement bars",
-  },
-  {
-    id: "security-door-installation",
-    number: "16",
-    title: "Security Door Installation",
-    text: "Enquire about security-door options, fitting requirements and available installation support.",
-    label: "DOORS & FITTING",
-    image: "/products/zonle-doors/simple-steel-entry.jpg",
-    imageAlt: "Steel entrance door product reference from the Zonle catalog",
-    imageFit: "contain",
-  },
-];
 
 const careerGroups = [
   {
@@ -882,7 +766,6 @@ function ProductCard({ product, onOpen }) {
           alt={product.imageAlt}
           loading="lazy"
         />
-        <span className="product-tag">{product.vendor}</span>
         <span className="grade-badge">{product.grade}</span>
       </button>
       <div className="product-card-content">
@@ -890,10 +773,7 @@ function ProductCard({ product, onOpen }) {
         <button className="product-name" onClick={() => onOpen(product)} type="button">
           {product.name}
         </button>
-        <div className="product-spec-grid">
-          <span><small>PACKAGING</small>{product.packaging}</span>
-          <span><small>SUPPLY</small>{product.plant}</span>
-        </div>
+        <p className="product-summary" title={product.summary}>{product.summary}</p>
         <div className="product-uses">
           {(showUses ? product.uses : product.uses.slice(0, 2)).map((use) => (
             <span className="use-chip" key={use}>{use}</span>
@@ -1063,11 +943,9 @@ function HomePage({ setPage, openProduct }) {
         <div className="hero-main">
           <div className="hero-copy">
             <span className="hub-badge"><span /> MFUOM LAST STOP HUB · 60+ GPS TRUCKS</span>
-            <p className="eyebrow">THE BUILDER&apos;S CHOICE PARTNER</p>
-            <h1>Building Ghana with <span>Ghacem, Paints &amp; Steel.</span></h1>
-            <p className="hero-description">
-              Your Mfuom hub for cement, Ghana paints, plywood, POP, doors and complete house construction support — from first delivery to final finish.
-            </p>
+            <p className="eyebrow">{pageCopy.Home.eyebrow}</p>
+            <h1>{pageCopy.Home.title[0]}<span>{pageCopy.Home.title[1]}</span></h1>
+            <p className="hero-description">{pageCopy.Home.description}</p>
             <div className="hero-buttons">
               <button className="button button-green" onClick={() => setPage("Products")} type="button">Explore products <Arrow /></button>
               <button className="button button-outline" onClick={() => setPage("Contact")} type="button">Plan your project <Arrow diagonal /></button>
@@ -1102,7 +980,10 @@ function HomePage({ setPage, openProduct }) {
         </div>
         <div className="category-grid">
           {productCategories.map((item) => {
-            const categoryProduct = products.find((product) => product.categoryKey === item.key);
+            const preferredImage = CATEGORY_THUMBNAILS[item.key];
+            const categoryProduct =
+              (preferredImage && products.find((product) => product.categoryKey === item.key && product.image === preferredImage)) ??
+              products.find((product) => product.categoryKey === item.key);
             return (
               <button key={item.key} className="category-card" onClick={() => setPage("Products")} type="button">
                 {categoryProduct && (
@@ -1140,7 +1021,7 @@ function HomePage({ setPage, openProduct }) {
 function AboutPage() {
   return (
     <>
-      <PageIntro eyebrow="ABOUT ISAPHILO ENTERPRISE" title={<>The Mfuom partner behind <span>your next build.</span></>} description="IsaPhilo Enterprise is a Ghanaian building materials supplier and construction partner serving contractors, homeowners and project teams from Mfuom Last Stop." />
+      <PageIntro eyebrow={pageCopy.About.eyebrow} title={<>{pageCopy.About.title[0]}<span>{pageCopy.About.title[1]}</span></>} description={pageCopy.About.description} />
       <section className="about-feature-grid">
         <article className="about-feature"><span className="large-stat">12k+</span><h2>Building essentials, ready at the hub.</h2><p>Our Mfuom Last Stop operation is set up to support projects with a broad selection of building materials and dependable coordination.</p></article>
         <article className="about-feature about-dark"><span className="large-stat">60+</span><h2>Delivery support that keeps projects moving.</h2><p>Our GPS-tracked fleet supports dispatch planning across Central Region and other operating areas. Timing depends on destination and current availability.</p></article>
@@ -1170,7 +1051,7 @@ function ProductsPage({ search, openProduct, category, onSelectCategory }) {
 
   return (
     <>
-      <PageIntro eyebrow={`PRODUCTS · ${products.length} BUILDING ESSENTIALS`} title={<>The materials to <span>move your build forward.</span></>} description="Explore cement, iron rods and steel sections, blocks, Ghana paints, plywood, ceiling systems, roofing and security doors through our Mfuom hub. Product names and images include Ghana-market references; they are not confirmation of IsaPhilo stock. Confirm availability, specifications and prices before ordering." />
+      <PageIntro eyebrow={pageCopy.Products.eyebrow.replace("{count}", products.length)} title={<>{pageCopy.Products.title[0]}<span>{pageCopy.Products.title[1]}</span></>} description={pageCopy.Products.description} />
       <div className="catalog-layout">
         <aside className="catalog-sidebar">
           <h2>Categories</h2>
@@ -1218,7 +1099,7 @@ function ProjectsPage({ projectStatus }) {
 
   return (
     <>
-      <PageIntro eyebrow="PROJECTS · CENTRAL, WESTERN & ASHANTI" title={<>Building across <span>three Ghanaian regions.</span></>} description="Locations shown on the four ongoing-site photos were provided by IsaPhilo: Compound, Twifo Praso and Dunkwa-On-Offin in the Central Region. Three completed-project photos were also supplied by IsaPhilo; their locations and association with specific projects have not been independently verified. Other project names and progress remain illustrative." />
+      <PageIntro eyebrow={pageCopy.Projects.eyebrow} title={<>{pageCopy.Projects.title[0]}<span>{pageCopy.Projects.title[1]}</span></>} description={pageCopy.Projects.description} />
       <div className="projects-grid">
         {visibleProjects.map((project) => <ProjectCard key={project.name} project={project} onOpen={() => setSelected(project)} />)}
       </div>
@@ -1230,7 +1111,7 @@ function ProjectsPage({ projectStatus }) {
 function PortfolioPage({ setPage }) {
   return (
     <section className="portfolio-panel">
-      <PageIntro eyebrow="PORTFOLIO · SUPPLY & CONSTRUCTION" title={<>A look at builds <span>across Ghana.</span></>} description="From a dependable materials hub to construction support, we help build momentum across residential and commercial projects." />
+      <PageIntro eyebrow={pageCopy.Portfolio.eyebrow} title={<>{pageCopy.Portfolio.title[0]}<span>{pageCopy.Portfolio.title[1]}</span></>} description={pageCopy.Portfolio.description} />
       <div className="portfolio-stats"><div><strong>12k+</strong><span>Bag stock capacity*</span></div><div><strong>60+</strong><span>GPS-tracked trucks*</span></div><div><strong>{products.length}</strong><span>Catalog products</span></div><div><strong>{projects.length}</strong><span>Project examples</span></div></div>
       <div className="portfolio-image-grid">
         {projects.slice(0, 4).map((project, index) => <article className={`portfolio-tile tile-${index + 1}`} key={project.name}><img src={project.photo.src} alt="" loading="lazy" /><div><span>{project.photo.location}</span><h2>{project.name}</h2></div></article>)}
@@ -1251,7 +1132,7 @@ function ServicesPage({ setPage, selectedServiceId }) {
 
   return (
     <>
-      <PageIntro eyebrow="SERVICES · MFUOM HUB" title={<>More than supply. <span>Support to build.</span></>} description="Explore maintenance, construction, trade and materials support for projects in Ghana. Images are representative local building and product references, not proof of work by IsaPhilo Enterprise; confirm service availability and project requirements with our team." />
+      <PageIntro eyebrow={pageCopy.Services.eyebrow} title={<>{pageCopy.Services.title[0]}<span>{pageCopy.Services.title[1]}</span></>} description={pageCopy.Services.description} />
       <div className="services-grid">
         {services.map((service) => (
           <article
@@ -1295,7 +1176,7 @@ function CareersPage() {
 
   return (
     <>
-      <PageIntro eyebrow="CAREERS · JOIN THE MFUOM TEAM" title={<>Help build Ghana, <span>one project at a time.</span></>} description="We welcome people who care about customers, practical building solutions and reliable delivery. Explore the roles below and send us your details." />
+      <PageIntro eyebrow={pageCopy.Careers.eyebrow} title={<>{pageCopy.Careers.title[0]}<span>{pageCopy.Careers.title[1]}</span></>} description={pageCopy.Careers.description} />
       <div className="careers-banner"><div><strong>IsaPhilo Enterprise · Mfuom Last Stop</strong><span>{CONTACT.address}</span></div><div><b>60+</b><span>trucks · building supplies · construction support</span></div></div>
       <div className="career-groups">
         {careerGroups.map((group) => <section className="career-group" key={group.group}><div className="career-group-title"><p className="eyebrow">CAREER OPPORTUNITIES</p><h2>{group.group}</h2></div><div className="role-grid">{group.roles.map(([title, type, location, description]) => <article className="role-card" key={title}><span className="role-meta">{type} · {location}</span><h3>{title}</h3><p>{description}</p><button className="button button-green small-button" onClick={() => { setSelectedRole(title); document.getElementById("application-form")?.scrollIntoView({ behavior: "smooth" }); }} type="button">Apply <Arrow diagonal /></button></article>)}</div></section>)}
@@ -1353,22 +1234,26 @@ function ContactPage({ inquiryItems }) {
       return;
     }
 
-    let result;
+    let result = null;
     try {
       result = await response.json();
     } catch {
+      // Error responses are often HTML, not JSON — handled by status below.
+    }
+
+    if (!response.ok) {
       setSubmissionStatus("error");
-      setSubmissionMessage("We couldn’t verify the submission. Please try again or contact us by phone or WhatsApp.");
+      setSubmissionMessage(describeHttpError(response.status));
       return;
     }
 
     const hasResult = result !== null && typeof result === "object";
-    if (!response.ok || !hasResult || (result.success !== true && result.success !== "true")) {
+    if (!hasResult || (result.success !== true && result.success !== "true")) {
       setSubmissionStatus("error");
       setSubmissionMessage(
         hasResult && typeof result.message === "string"
           ? result.message
-          : "FormSubmit did not confirm delivery. Please try again or contact us by phone or WhatsApp.",
+          : "We couldn’t confirm your inquiry was delivered. Please try again or contact us by phone or WhatsApp.",
       );
       return;
     }
@@ -1381,9 +1266,9 @@ function ContactPage({ inquiryItems }) {
   return (
     <section className="contact-page">
       <div className="contact-info">
-        <p className="eyebrow">CONTACT · MFUOM LAST STOP</p>
-        <h1>Let&apos;s talk about <span>your build.</span></h1>
-        <p>Tell us what you&apos;re working on. We can help with materials, delivery and house construction enquiries.</p>
+        <p className="eyebrow">{pageCopy.Contact.eyebrow}</p>
+        <h1>{pageCopy.Contact.title[0]}<span>{pageCopy.Contact.title[1]}</span></h1>
+        <p>{pageCopy.Contact.description}</p>
         <div className="contact-item"><Pin /><span><small>VISIT THE HUB</small>{CONTACT.address}</span></div>
         <a className="contact-item" href={`mailto:${CONTACT.email}`}><span className="contact-icon">@</span><span><small>EMAIL</small>{CONTACT.email}</span></a>
         <a className="contact-item" href={`tel:${CONTACT.phone}`}><span className="contact-icon"><PhoneIcon /></span><span><small>CALL / WHATSAPP</small>{CONTACT.phone}</span></a>
@@ -1424,14 +1309,14 @@ function Footer({ setPage }) {
       <div className="wide-shell footer-grid">
         <div className="footer-brand-column"><Brand setPage={setPage} /><p>The Builder&apos;s Choice Partner. Building Ghana, from Mfuom Last Stop.</p></div>
         <div className="footer-pages"><h2>PAGES</h2>{navigation.map((page) => <a key={page} href={pagePaths[page]} onClick={(event) => { if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return; event.preventDefault(); setPage(page); window.scrollTo({ top: 0, behavior: "smooth" }); }}>{page}</a>)}</div>
-        <div className="footer-contact"><h2 className="footer-accent-heading">LOCATE US</h2><p>{CONTACT.address}</p><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a><a href={`tel:${CONTACT.phone}`}>{CONTACT.phone}</a><span>60+ GPS trucks · 24–48h dispatch*</span></div>
+        <div className="footer-contact"><h2 className="footer-accent-heading">LOCATE US</h2><p>{CONTACT.address}</p><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a><a href={`tel:${CONTACT.phone}`}>{CONTACT.phone}</a></div>
         <div className="footer-stock"><h2 className="footer-accent-heading">ISAPHILO ENTERPRISE STOCK</h2><p>Azar · Coral · Leyland · Shield · Dolphin · Dominion</p><p>Marine plywood · POP &amp; Knauf · Security doors</p><a className="footer-whatsapp-link" href={CONTACT.whatsapp} target="_blank" rel="noreferrer">Message us on WhatsApp <Arrow diagonal /></a></div>
         <div className="footer-reach-form">
           <div className="footer-reach-copy"><h2>Get price updates &amp; new stock alerts</h2><p>Cement, steel and paint prices move often. Join the IsaPhilo list and we&apos;ll let you know when stock lands at Mfuom.</p></div>
           <div className="footer-reach-embed" data-reach-form="19ead09d-b56f-4cc2-a142-50c4ca9593b5"></div>
         </div>
       </div>
-      <div className="wide-shell footer-bottom"><span>© {new Date().getFullYear()} IsaPhilo Enterprise</span><span>*Delivery timing and availability vary by destination and stock.</span></div>
+      <div className="wide-shell footer-bottom"><span>© {new Date().getFullYear()} IsaPhilo Enterprise</span><span>Delivery timing and availability vary by destination and stock.</span></div>
     </footer>
   );
 }
@@ -1509,9 +1394,29 @@ function LoadingSkeleton({ isOffline }) {
   );
 }
 
+function NotFoundPage({ setPage }) {
+  const goTo = (target) => {
+    setPage(target);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  return (
+    <section className="not-found-page" aria-labelledby="not-found-title">
+      <p className="eyebrow">ERROR 404</p>
+      <h1 id="not-found-title">We can&apos;t find <span>that page.</span></h1>
+      <p>The link may be mistyped, or the page has moved. Try one of these instead, or ask the Mfuom team directly.</p>
+      <div className="not-found-actions">
+        <button className="button button-green" onClick={() => goTo("Home")} type="button">Go to homepage <Arrow /></button>
+        <button className="button button-outline" onClick={() => goTo("Products")} type="button">Browse products <Arrow /></button>
+        <a className="button button-whatsapp" href={CONTACT.whatsapp} target="_blank" rel="noreferrer">WhatsApp us <Arrow diagonal /></a>
+      </div>
+    </section>
+  );
+}
+
 export default function App() {
   const [page, setCurrentPage] = useState(
-    () => pageFromPath[window.location.pathname.replace(/\/+$/, "") || "/"] ?? "Home",
+    () => pageFromPath[window.location.pathname.replace(/\/+$/, "") || "/"] ?? NOT_FOUND_PAGE,
   );
   const [search, setSearch] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -1543,8 +1448,8 @@ export default function App() {
         return;
       }
 
-      window.history.replaceState({ page: "Home" }, "", pagePaths.Home);
-      setCurrentPage("Home");
+      // Unknown address: show the 404 page instead of silently redirecting.
+      setCurrentPage(NOT_FOUND_PAGE);
     };
 
     window.addEventListener("popstate", syncPageWithLocation);
@@ -1553,6 +1458,13 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    const robotsMeta = document.querySelector('meta[name="robots"]');
+    if (page === NOT_FOUND_PAGE) {
+      document.title = "Page not found (404) | IsaPhilo Enterprise";
+      robotsMeta?.setAttribute("content", "noindex, follow");
+      return;
+    }
+    robotsMeta?.setAttribute("content", DEFAULT_ROBOTS);
     const metadata = pageMetadata[page] ?? pageMetadata.Home;
     const canonicalUrl = `${siteUrl}${pagePaths[page] ?? pagePaths.Home}`;
     document.title = metadata.title;
@@ -1665,6 +1577,7 @@ export default function App() {
   };
 
   const pageComponents = {
+    [NOT_FOUND_PAGE]: <NotFoundPage setPage={setPage} />,
     Home: <HomePage setPage={setPage} openProduct={setSelectedProduct} />,
     About: <AboutPage />,
     Products: (
