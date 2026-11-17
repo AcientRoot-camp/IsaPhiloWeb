@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { CONSENT_EVENT, hasDecided } from "./consent.js";
 
 // "Install the app" prompt for every platform that can install a web app:
 // - Android, Windows, macOS, ChromeOS on Chrome / Edge / Samsung Internet / Opera:
@@ -102,14 +103,24 @@ export default function InstallPrompt() {
 
     window.addEventListener("beforeinstallprompt", onBeforeInstall);
     window.addEventListener("appinstalled", onInstalled);
-    const timer = window.setTimeout(() => {
-      setReady(true);
-      setHidden(false);
-    }, SHOW_DELAY_MS);
+
+    // Don't stack on top of the cookie banner: start the delay only once the
+    // visitor has made a cookie choice (immediately, if they did on an earlier visit).
+    let timer;
+    function startTimer() {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        setReady(true);
+        setHidden(false);
+      }, SHOW_DELAY_MS);
+    }
+    if (hasDecided()) startTimer();
+    else window.addEventListener(CONSENT_EVENT, startTimer, { once: true });
 
     return () => {
       window.removeEventListener("beforeinstallprompt", onBeforeInstall);
       window.removeEventListener("appinstalled", onInstalled);
+      window.removeEventListener(CONSENT_EVENT, startTimer);
       window.clearTimeout(timer);
     };
   }, []);

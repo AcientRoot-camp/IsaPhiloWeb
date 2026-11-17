@@ -1,7 +1,14 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
+// Self-hosted Inter (variable weights). Replaces the Google Fonts link so the
+// font loads from our own domain with no third-party request.
+import "@fontsource-variable/inter";
 import "./index.css";
+import { applyStoredConsent } from "./consent.js";
+
+// Load any third-party scripts the visitor already agreed to on a previous visit.
+applyStoredConsent();
 
 // Chrome/Edge can fire this before React mounts; keep it for <InstallPrompt />.
 window.addEventListener("beforeinstallprompt", (event) => {

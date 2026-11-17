@@ -38,5 +38,20 @@
     "path": "/contact",
     "title": "Contact IsaPhilo Enterprise | Dunkwa-On-Offin",
     "description": "Contact IsaPhilo Enterprise in Mfuom, Dunkwa-On-Offin, Ghana about building materials, stock, delivery or construction support."
+  },
+  "Privacy": {
+    "path": "/privacy-policy",
+    "title": "Privacy Policy | IsaPhilo Enterprise",
+    "description": "How IsaPhilo Enterprise collects, uses and protects personal data from enquiries, job applications and website visits, and how to exercise your rights."
+  },
+  "Cookies": {
+    "path": "/cookie-policy",
+    "title": "Cookie Policy | IsaPhilo Enterprise",
+    "description": "The cookies and browser storage isaphiloenterprise.com uses, why we use them, and how to change your cookie choices at any time."
+  },
+  "Terms": {
+    "path": "/terms",
+    "title": "Terms of Use | IsaPhilo Enterprise",
+    "description": "Terms for using the IsaPhilo Enterprise website, including product information, prices, quotations, delivery and liability."
   }
 }

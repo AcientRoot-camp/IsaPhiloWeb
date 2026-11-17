@@ -5,6 +5,9 @@ import { createSeoStructuredData } from "./seo-structured-data.js";
 import { pageCopy } from "./page-copy.js";
 import { services } from "./services.js";
 import InstallPrompt from "./InstallPrompt.jsx";
+import CookieConsent from "./CookieConsent.jsx";
+import { LEGAL_LAST_UPDATED, legalPages } from "./legal-content.js";
+import { CONSENT_EVENT, hasMarketingConsent, openCookieSettings, saveConsent } from "./consent.js";
 
 const CONTACT = {
   address:
@@ -1208,6 +1211,8 @@ function CareersPage() {
         <div className="form-grid"><label>Full name<input name="name" autoComplete="name" placeholder="Your name" required /></label><label>Email address<input name="email" autoComplete="email" type="email" placeholder="you@example.com" required /></label><label>Phone / WhatsApp<input name="phone" type="tel" placeholder="+233 ..." required /></label><label>Role of interest<select name="role" value={selectedRole} onChange={(event) => setSelectedRole(event.target.value)} required><option value="">Select a role</option>{careerGroups.flatMap((group) => group.roles.map(([title]) => <option value={title} key={title}>{title}</option>))}<option value="General application">Other building-related role</option></select></label><label className="file-field">CV / Resume <span>PDF, DOC or DOCX · 5 MB max</span><input name="attachment" type="file" accept=".pdf,.doc,.docx" onChange={validateFile} required /></label><label className="wide-field">A short introduction<textarea name="message" rows="4" placeholder="Tell us about your experience and availability." required /></label></div>
         {fileError && <p className="form-error" role="alert">{fileError}</p>}
         <button className="button button-green" type="submit">Submit application <Arrow diagonal /></button>
+        {/* Privacy notice at the point of collection (Act 843: tell people how their data is used) */}
+        <p className="form-privacy-note">By applying, you agree that we&apos;ll use your details and CV to review your application, as explained in our <a href="/privacy-policy">Privacy Policy</a>.</p>
         <p className="form-disclaimer">Applications are sent to {CONTACT.email} through FormSubmit. The recipient must activate this address with FormSubmit before email delivery begins.</p>
         <aside className="application-fallback">
           <strong>Having trouble with the application form?</strong>
@@ -1317,6 +1322,8 @@ function ContactPage({ inquiryItems }) {
         <label>Tell us about your build<textarea name="message" rows="4" placeholder="What are you building, and when do you need supplies?" required /></label>
         <button className="button button-green submit-button" type="submit" disabled={submissionStatus === "submitting"}>{submissionStatus === "submitting" ? "Sending..." : "Send Inquiry"} <Arrow diagonal /></button>
         {submissionMessage && <p className={`inquiry-status ${submissionStatus}`} role={submissionStatus === "error" ? "alert" : "status"}>{submissionMessage}</p>}
+        {/* Privacy notice at the point of collection */}
+        <p className="form-privacy-note">We&apos;ll use your details only to reply to your enquiry and prepare a quote. See our <a href="/privacy-policy">Privacy Policy</a>.</p>
         <p className="form-disclaimer">Inquiries are sent to {CONTACT.email} through FormSubmit. The recipient must activate this address with FormSubmit before email delivery begins.</p>
       </form>
     </section>
@@ -1333,11 +1340,93 @@ function Footer({ setPage }) {
         <div className="footer-stock"><h2 className="footer-accent-heading">ISAPHILO ENTERPRISE STOCK</h2><p>Azar · Coral · Leyland · Shield · Dolphin · Dominion</p><p>Marine plywood · POP &amp; Knauf · Security doors</p><a className="footer-whatsapp-link" href={CONTACT.whatsapp} target="_blank" rel="noreferrer">Message us on WhatsApp <Arrow diagonal /></a></div>
         <div className="footer-reach-form">
           <div className="footer-reach-copy"><h2>Get price updates &amp; new stock alerts</h2><p>Cement, steel and paint prices move often. Join the IsaPhilo list and we&apos;ll let you know when stock lands at Mfuom.</p></div>
-          <div className="footer-reach-embed" data-reach-form="19ead09d-b56f-4cc2-a142-50c4ca9593b5"></div>
+          <ReachSignup setPage={setPage} />
         </div>
       </div>
-      <div className="wide-shell footer-bottom"><span>© {new Date().getFullYear()} IsaPhilo Enterprise</span><span>Delivery timing and availability vary by destination and stock.</span></div>
+      <div className="wide-shell footer-bottom">
+        <span>© {new Date().getFullYear()} IsaPhilo Enterprise</span>
+        {/* Legal links + a way to reopen the cookie banner on every page */}
+        <nav className="footer-legal" aria-label="Legal">
+          {["Privacy", "Cookies", "Terms"].map((page) => (
+            <a key={page} href={pagePaths[page]} onClick={(event) => { if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return; event.preventDefault(); setPage(page); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
+              {LEGAL_LINK_LABELS[page]}
+            </a>
+          ))}
+          <button type="button" onClick={openCookieSettings}>Cookie settings</button>
+        </nav>
+        <span>Delivery timing and availability vary by destination and stock.</span>
+      </div>
     </footer>
+  );
+}
+
+const LEGAL_LINK_LABELS = { Privacy: "Privacy Policy", Cookies: "Cookie Policy", Terms: "Terms of Use" };
+
+// Footer Hostinger Reach sign-up form. Reach is a marketing tracker, so its
+// script (and therefore the form) only loads after marketing consent. Until
+// then we show a short explanation and a button that grants consent.
+function ReachSignup({ setPage }) {
+  const [allowed, setAllowed] = useState(() => hasMarketingConsent());
+
+  useEffect(() => {
+    const sync = () => setAllowed(hasMarketingConsent());
+    window.addEventListener(CONSENT_EVENT, sync);
+    return () => window.removeEventListener(CONSENT_EVENT, sync);
+  }, []);
+
+  if (allowed) {
+    return <div className="footer-reach-embed" data-reach-form="19ead09d-b56f-4cc2-a142-50c4ca9593b5"></div>;
+  }
+
+  return (
+    <div className="footer-reach-embed footer-reach-consent">
+      <p>The sign-up form is provided by Hostinger Reach, which uses marketing cookies. Allow them to load the form.</p>
+      <div>
+        <button type="button" className="button button-green" onClick={() => saveConsent({ marketing: true })}>Allow &amp; show form</button>
+        <a href={pagePaths.Cookies} onClick={(event) => { if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return; event.preventDefault(); setPage("Cookies"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>Cookie Policy</a>
+      </div>
+    </div>
+  );
+}
+
+// Renders one block of legal-content.js: paragraph string, { list } or { table }.
+function LegalBlock({ block }) {
+  if (typeof block === "string") return <p>{block}</p>;
+  if (block.list) return <ul>{block.list.map((item) => <li key={item}>{item}</li>)}</ul>;
+  if (block.table) {
+    return (
+      <div className="legal-table-wrap">
+        <table className="legal-table">
+          <thead><tr>{block.table.head.map((cell) => <th key={cell} scope="col">{cell}</th>)}</tr></thead>
+          <tbody>{block.table.rows.map((row) => <tr key={row[0]}>{row.map((cell, index) => <td key={index} data-label={block.table.head[index]}>{cell}</td>)}</tr>)}</tbody>
+        </table>
+      </div>
+    );
+  }
+  return null;
+}
+
+// Privacy Policy / Cookie Policy / Terms of Use page. Content lives in
+// legal-content.js (shared with the pre-renderer); intro copy in page-copy.js.
+function LegalPage({ pageKey }) {
+  const copy = pageCopy[pageKey];
+  const { sections } = legalPages[pageKey];
+  return (
+    <article className="legal-page">
+      <PageIntro eyebrow={copy.eyebrow} title={<>{copy.title[0]}<span>{copy.title[1]}</span></>} description={copy.description} />
+      <p className="legal-updated">Last updated: {LEGAL_LAST_UPDATED}</p>
+      <div className="legal-body">
+        {sections.map((section) => (
+          <section key={section.heading}>
+            <h2>{section.heading}</h2>
+            {section.body.map((block, index) => <LegalBlock key={index} block={block} />)}
+          </section>
+        ))}
+        {pageKey === "Cookies" && (
+          <p><button type="button" className="button button-green" onClick={openCookieSettings}>Change cookie settings</button></p>
+        )}
+      </div>
+    </article>
   );
 }
 
@@ -1614,6 +1703,10 @@ export default function App() {
     Services: <ServicesPage setPage={setPage} selectedServiceId={selectedServiceId} />,
     Careers: <CareersPage />,
     Contact: <ContactPage inquiryItems={inquiryItems} />,
+    // Legal pages (footer links); text in legal-content.js
+    Privacy: <LegalPage pageKey="Privacy" />,
+    Cookies: <LegalPage pageKey="Cookies" />,
+    Terms: <LegalPage pageKey="Terms" />,
   };
 
   if (isInitialLoading) return <LoadingSkeleton isOffline={isOffline} />;
@@ -1638,6 +1731,8 @@ export default function App() {
       <main className="page-content wide-shell">{pageComponents[page]}</main>
       <Footer setPage={setPage} />
       <MobileActionBar setPage={setPage} />
+      {/* Cookie banner first; InstallPrompt waits until a cookie choice is made */}
+      <CookieConsent onNavigate={(target) => { setPage(target); window.scrollTo({ top: 0, behavior: "smooth" }); }} />
       <InstallPrompt />
       {showScrollTop && <button className="scroll-to-top" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} type="button" aria-label="Scroll to top"><ArrowUp /></button>}
       {selectedProduct && <ProductModal product={selectedProduct} onClose={() => setSelectedProduct(null)} onOpenRelated={setSelectedProduct} onAddToInquiry={addToInquiry} />}

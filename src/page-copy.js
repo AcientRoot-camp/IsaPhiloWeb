@@ -65,5 +65,20 @@ export const pageCopy = {
       "your build."
     ],
     "description": "Tell us what you're working on. We can help with materials, delivery and house construction enquiries."
+  },
+  "Privacy": {
+    "eyebrow": "LEGAL · PRIVACY",
+    "title": ["Privacy ", "policy."],
+    "description": "How we collect, use and protect your personal data, and the choices you have."
+  },
+  "Cookies": {
+    "eyebrow": "LEGAL · COOKIES",
+    "title": ["Cookie ", "policy."],
+    "description": "What we store on your device, why, and how to change your choice at any time."
+  },
+  "Terms": {
+    "eyebrow": "LEGAL · TERMS",
+    "title": ["Terms ", "of use."],
+    "description": "The rules for using this website, and what to expect about prices, quotations and delivery."
   }
 };

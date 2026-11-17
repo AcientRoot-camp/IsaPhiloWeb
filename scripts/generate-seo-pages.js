@@ -3,6 +3,7 @@ import { businessFacts, createSeoStructuredData } from "../src/seo-structured-da
 import { pageCopy } from "../src/page-copy.js";
 import { productCategories, products } from "../src/products.js";
 import { services } from "../src/services.js";
+import { LEGAL_LAST_UPDATED, legalPages } from "../src/legal-content.js";
 
 const siteUrl = "https://isaphiloenterprise.com";
 const outputDirectory = new URL("../dist/", import.meta.url);
@@ -144,7 +145,32 @@ const pageBodies = {
         ${renderServiceList()}`,
   Products: () => renderProductsByCategory(),
   Services: () => renderServiceList({ withText: true }),
+  // Legal pages: full policy text so crawlers index the same wording visitors see
+  Privacy: () => renderLegalBody("Privacy"),
+  Cookies: () => renderLegalBody("Cookies"),
+  Terms: () => renderLegalBody("Terms"),
 };
+
+// Mirrors LegalBlock in App.jsx: string → <p>, { list } → <ul>, { table } → <table>.
+function renderLegalBlock(block) {
+  if (typeof block === "string") return `<p>${text(block)}</p>`;
+  if (block.list) return `<ul>${block.list.map((item) => `<li>${text(item)}</li>`).join("")}</ul>`;
+  if (block.table) {
+    const head = block.table.head.map((cell) => `<th scope="col">${text(cell)}</th>`).join("");
+    const rows = block.table.rows
+      .map((row) => `<tr>${row.map((cell) => `<td>${text(cell)}</td>`).join("")}</tr>`)
+      .join("");
+    return `<table><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table>`;
+  }
+  return "";
+}
+
+function renderLegalBody(pageKey) {
+  const sections = legalPages[pageKey].sections
+    .map((section) => `<h2>${text(section.heading)}</h2>\n        ${section.body.map(renderLegalBlock).join("\n        ")}`)
+    .join("\n        ");
+  return `<p>Last updated: ${text(LEGAL_LAST_UPDATED)}</p>\n        ${sections}`;
+}
 
 function renderStaticContent(page) {
   const body = pageBodies[page]?.() ?? "";

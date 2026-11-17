@@ -64,13 +64,13 @@
         ]
       }
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap" />
+    <!-- Inter is self-hosted (bundled from @fontsource-variable/inter in main.jsx),
+         so no visitor IP addresses are sent to Google Fonts. -->
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-    <script src="https://cdn-reach.hostinger.com/js/embed.js"></script>
+    <!-- Hostinger Reach (tracking + footer sign-up form) is NOT loaded here.
+         src/consent.js loads it only after the visitor accepts marketing cookies. -->
   </body>
 </html>

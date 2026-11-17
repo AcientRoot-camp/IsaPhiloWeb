@@ -27,7 +27,7 @@ ErrorDocument 504 /errors/504.html
 </IfModule>
 
 # Pre-rendered SEO pages for each app route.
-RewriteRule ^(about|products|projects|portfolio|services|careers|contact)/?$ $1.html [L]
+RewriteRule ^(about|products|projects|portfolio|services|careers|contact|privacy-policy|cookie-policy|terms)/?$ $1.html [L]
 
 # Serve real files and directories as-is.
 RewriteCond %{REQUEST_FILENAME} -f [OR]
